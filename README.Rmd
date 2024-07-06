@@ -31,6 +31,10 @@ You can install the development version of setupR like so:
 remotes::install_github("https://github.com/fabiandistler/setupR")  
 ```
 
+## Documentation
+
+Full documentation website on: https://fabiandistler.github.io/setupR
+
 ## Example
 
 This is a basic example which shows you how to solve a common problem:
