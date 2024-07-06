@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# setupR
+# setupR (under development)
 
 <!-- badges: start -->
 [![R-CMD-check](https://github.com/fabiandistler/setupR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/fabiandistler/setupR/actions/workflows/R-CMD-check.yaml)
@@ -30,6 +30,10 @@ You can install the development version of setupR like so:
 ``` r
 remotes::install_github("https://github.com/fabiandistler/setupR")  
 ```
+
+## Documentation
+
+Full documentation website on: https://fabiandistler.github.io/setupR
 
 ## Example
 

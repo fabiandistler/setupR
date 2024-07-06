@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# setupR
+# setupR (under development)
 
 <!-- badges: start -->
 
@@ -21,6 +21,10 @@ You can install the development version of setupR like so:
 ``` r
 remotes::install_github("https://github.com/fabiandistler/setupR")  
 ```
+
+## Documentation
+
+Full documentation website on: <https://fabiandistler.github.io/setupR>
 
 ## Example
 
