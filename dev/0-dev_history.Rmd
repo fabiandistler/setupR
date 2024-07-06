@@ -48,7 +48,7 @@ remotes::install_local()
 # README
 usethis::use_readme_rmd()
 # Code of Conduct
-usethis::use_code_of_conduct("contact@fake.com")
+usethis::use_code_of_conduct("fabian.distler@gmx.net")
 # NEWS
 usethis::use_news_md()
 # Package structure (add this in a dev/Readme.md file)
@@ -63,7 +63,7 @@ fusen::draw_package_structure()
 
 ```{r, eval=FALSE}
 # Pipe
-usethis::use_pipe()
+# usethis::use_pipe()
 
 # package-level documentation
 usethis::use_package_doc()
@@ -78,12 +78,12 @@ gitcreds::gitcreds_set()
 usethis::use_github()
 
 # Set Continuous Integration
-# _GitHub (included in `init_share_on_github()`)
-usethis::use_github_action_check_standard()
 usethis::use_github_action("pkgdown")
 usethis::use_github_action("test-coverage")
+usethis::use_github_action("pr-commands")
+usethis::use_github_action("style")
 # _GitLab
-gitlabr::use_gitlab_ci(type = "check-coverage-pkgdown")
+# gitlabr::use_gitlab_ci(type = "check-coverage-pkgdown")
 ```
 
 ## Use everytime needed

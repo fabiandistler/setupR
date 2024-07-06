@@ -1,0 +1,14 @@
+flat_add_template.Rmd:
+  path: dev/flat_add_template.Rmd
+  state: active
+  R: R/add_template.R
+  tests: tests/testthat/test-.R
+  vignettes: []
+  inflate:
+    flat_file: dev/flat_add_template.Rmd
+    vignette_name: .na
+    open_vignette: true
+    check: true
+    document: true
+    overwrite: ask
+    clean: ask

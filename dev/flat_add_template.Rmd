@@ -1,0 +1,47 @@
+---
+title: "flat_add_template.Rmd empty"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r development, include=FALSE}
+library(testthat)
+```
+
+```{r development-load}
+# Load already included functions if relevant
+pkgload::load_all(export_all = FALSE)
+```
+
+# add_template
+
+```{r function-add_template}
+#' add_template Title
+#'
+#' @return 1
+#' @export
+#'
+#' @examples
+add_template <- function() {
+  1
+}
+```
+
+# ```{r examples-add_template}
+# add_template()
+# ```
+
+```{r tests-add_template}
+test_that("add_template works", {
+  expect_true(inherits(add_template, "function"))
+})
+```
+
+
+```{r development-inflate, eval=FALSE}
+# Run but keep eval=FALSE to avoid infinite loop
+# Execute in the console directly
+fusen::inflate(flat_file = "dev/flat_add_template.Rmd", vignette_name = NA)
+```
+
