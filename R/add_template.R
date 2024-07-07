@@ -40,15 +40,7 @@ add_template <- function(
     template_name = NULL,
     overwrite = FALSE,
     open = TRUE) {
-  project_name <- fusen:::get_pkg_name(pkg = pkg)
-
-  if (project_name != fusen:::asciify_name(project_name, to_pkg = TRUE)) {
-    stop(
-      "Please rename your project/directory with: `",
-      fusen:::asciify_name(project_name, to_pkg = TRUE),
-      "` as a package name should only contain letters, numbers and dots."
-    )
-  }
+  project_name <- get_pkg_name(pkg = pkg)
 
   template <- template[1]
   template <- match.arg(template, choices = template_choices)
@@ -128,4 +120,16 @@ local_file_ignore <- function(file, ignores) {
     all <- c(existing_lines, new)
     cat(enc2utf8(all), file = buildfile, sep = "\n")
   }
+}
+
+#' Retrieve name of the package if there is a DESCRIPTION
+#' @noRd
+get_pkg_name <- function(pkg) {
+  desc <- file.path(pkg, "DESCRIPTION")
+  if (file.exists(desc)) {
+    pkgname <- read.dcf(desc)[colnames(read.dcf(desc)) == "Package"]
+  } else {
+    pkgname <- basename(normalizePath(pkg, mustWork = FALSE))
+  }
+  pkgname
 }

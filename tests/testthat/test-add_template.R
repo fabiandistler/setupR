@@ -51,3 +51,19 @@ test_that("local_file_ignore works", {
   # Clean
   unlink(tmpdirectory)
 })
+
+# get_pkg_name ----
+dummypackage <- tempfile("checkpk.gname2")
+dir.create(dummypackage)
+# rstudioapi::filesPaneNavigate(dummypackage)
+# {fusen} steps
+fusen::fill_description(pkg = dummypackage, fields = list(Title = "Dummy Package", Package = "COUCOU2"))
+dev_file <- suppressMessages(add_template(pkg = dummypackage, overwrite = TRUE, open = FALSE))
+flat_file <- dev_file[grepl("0-dev_", dev_file)]
+
+test_that("get_pkg_name works", {
+  flat_file_lines <- readLines(flat_file)
+  expect_false(any(grepl("gname2", flat_file_lines)))
+})
+
+unlink(dummypackage, recursive = TRUE)
