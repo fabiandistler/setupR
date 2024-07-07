@@ -27,6 +27,19 @@ fusen::fill_description(
 usethis::use_mit_license("John Doe")
 ```
 
+# Make sure everything is set up correctly for development
+
+```{r, eval=FALSE}
+usethis::git_sitrep()
+
+usethis::proj_sitrep()
+
+devtools::dev_sitrep()
+
+usethis::use_testthat()
+```
+
+
 # All-in-one function to deploy publicly on GitHub
 
 Either use this GitHub all-in-one function or choose the steps one-by-one in the following sections.
