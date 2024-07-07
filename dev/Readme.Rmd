@@ -1,4 +1,4 @@
-# Package dev overview for {fusen}
+# Package dev overview for `{fusen}`
 
 Run this in console for package overview:
 ```{r, eval=FALSE}

@@ -9,10 +9,10 @@ License: MIT + file LICENSE
 URL: https://github.com/fabiandistler/setupR
 BugReports: https://github.com/fabiandistler/setupR/issues
 Imports: 
-    fusen,
     here,
     usethis
 Suggests: 
+    fusen,
     testthat
 Config/fusen/version: 0.6.0
 Encoding: UTF-8

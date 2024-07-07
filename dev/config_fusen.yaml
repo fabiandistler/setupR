@@ -12,3 +12,9 @@ flat_add_template.Rmd:
     document: true
     overwrite: ask
     clean: ask
+keep:
+  path: keep
+  state: active
+  R: R/setupR-package.R
+  tests: []
+  vignettes: []
