@@ -12,13 +12,15 @@ coverage](https://codecov.io/gh/fabiandistler/setupR/branch/main/graph/badge.svg
 
 The goal of setupR is to help with common data science workflows. There
 are templates for data import and cleaning functions, targets pipelines,
-and more.
+and more. The package makes heavy use of great packages like `{fusen}`,
+`{targets}`, `{usethis}`, and others.
 
 ## Installation
 
 You can install the development version of setupR like so:
 
 ``` r
+# install.packages("remotes")
 remotes::install_github("https://github.com/fabiandistler/setupR")  
 ```
 

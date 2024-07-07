@@ -2,13 +2,19 @@ flat_add_template.Rmd:
   path: dev/flat_add_template.Rmd
   state: active
   R: R/add_template.R
-  tests: tests/testthat/test-.R
+  tests: tests/testthat/test-add_template.R
   vignettes: []
   inflate:
     flat_file: dev/flat_add_template.Rmd
     vignette_name: .na
     open_vignette: true
-    check: true
+    check: false
     document: true
     overwrite: ask
     clean: ask
+keep:
+  path: keep
+  state: active
+  R: R/setupR-package.R
+  tests: []
+  vignettes: []

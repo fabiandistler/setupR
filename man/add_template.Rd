@@ -2,13 +2,48 @@
 % Please edit documentation in R/add_template.R
 \name{add_template}
 \alias{add_template}
-\title{add_template Title}
+\title{Add Rmd template}
 \usage{
-add_template()
+add_template(
+  template = c("dev_history"),
+  pkg = ".",
+  dev_dir = "dev",
+  template_name = NULL,
+  overwrite = FALSE,
+  open = TRUE
+)
+}
+\arguments{
+\item{template}{Name of the template to use. See details.}
+
+\item{pkg}{Path where to save file}
+
+\item{dev_dir}{Name of directory for development Rmarkdown files. Default to "dev".}
+
+\item{template_name}{Name of the file to write in dev.}
+
+\item{overwrite}{Whether to overwrite existing Rmd template file with same name}
+
+\item{open}{Logical. Whether to open file after creation}
 }
 \value{
-1
+Create Rmd file(s) template(s) and return its (their) path
 }
 \description{
-add_template Title
+Add Rmd template
+}
+\details{
+This function was adapted from the awesome \code{{fusen}} package.
+
+Choose \code{template} among the different templates available:
+\itemize{
+\item "dev_history": Template with functions commonly used during package development.
+}
+}
+\examples{
+# For classical use in your package
+\dontrun{
+# add only the dev_history file in an existing package
+add_template()
+}
 }
