@@ -13,7 +13,7 @@ template_choices <- c(
 #' @param overwrite Whether to overwrite existing Rmd template file with same name
 #' @param open Logical. Whether to open file after creation
 #' @param dev_dir Name of directory for development Rmarkdown files. Default to "dev".
-#' @param flat_name Name of the file to write in dev.
+#' @param template_name Name of the file to write in dev.
 #'
 #' @details
 #' This function was adapted from the awesome `{fusen}` package.
@@ -21,10 +21,10 @@ template_choices <- c(
 #' Choose `template` among the different templates available:
 #'
 #' - "dev_history": Template with functions commonly used during package development.
-#' This does not contain chunks to write your own functions.
+#'
 #' @rdname add_template
 #' @return
-#' Create flat Rmd file(s) template(s) and return its (their) path
+#' Create Rmd file(s) template(s) and return its (their) path
 #' @export
 #'
 #' @examples
@@ -37,7 +37,7 @@ add_template <- function(
     template = c("dev_history"),
     pkg = ".",
     dev_dir = "dev",
-    flat_name = NULL,
+    template_name = NULL,
     overwrite = FALSE,
     open = TRUE) {
   project_name <- fusen:::get_pkg_name(pkg = pkg)
@@ -53,8 +53,8 @@ add_template <- function(
   template <- template[1]
   template <- match.arg(template, choices = template_choices)
 
-  if (is.null(flat_name)) {
-    flat_name <- template
+  if (is.null(template_name)) {
+    template_name <- template
   }
 
   if (template == "dev_history") {
@@ -66,7 +66,7 @@ add_template <- function(
   if (!dir.exists(full_dev_dir)) {
     dir.create(full_dev_dir)
   }
-  dev_file_path <- file.path(full_dev_dir, flat_name) # "dev_history.Rmd")
+  dev_file_path <- file.path(full_dev_dir, template_name) # "dev_history.Rmd")
 
   # Add the-dev-history when needed ----
   if (template %in% c("dev_history")) {
@@ -97,12 +97,12 @@ add_template <- function(
     ignores <- c(paste0("^", dev_dir, "$"))
   }
 
-  fusen:::local_file_ignore(file = file.path(pkg, ".Rbuildignore"), ignores)
+  local_file_ignore(file = file.path(pkg, ".Rbuildignore"), ignores)
 
   # Add a gitignore file in dev_dir ----
   # Files to ignore
   ignores <- c("*.html")
-  fusen:::local_file_ignore(file = file.path(full_dev_dir, ".gitignore"), ignores)
+  local_file_ignore(file = file.path(full_dev_dir, ".gitignore"), ignores)
 
   if (length(list.files(pkg, pattern = "[.]Rproj")) == 0 &
     !any(grepl("^[.]here$", list.files(pkg, all.files = TRUE)))) {
@@ -112,4 +112,20 @@ add_template <- function(
     lapply(dev_file_path, usethis::edit_file)
   }
   dev_file_path
+}
+
+#' Add new lines in a file if they are different from what exists
+#' @noRd
+local_file_ignore <- function(file, ignores) {
+  buildfile <- normalizePath(file, mustWork = FALSE)
+  if (!file.exists(buildfile)) {
+    existing_lines <- character(0)
+  } else {
+    existing_lines <- readLines(buildfile, warn = FALSE, encoding = "UTF-8")
+  }
+  new <- setdiff(ignores, existing_lines)
+  if (length(new) != 0) {
+    all <- c(existing_lines, new)
+    cat(enc2utf8(all), file = buildfile, sep = "\n")
+  }
 }

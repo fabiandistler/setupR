@@ -8,7 +8,7 @@ add_template(
   template = c("dev_history"),
   pkg = ".",
   dev_dir = "dev",
-  flat_name = NULL,
+  template_name = NULL,
   overwrite = FALSE,
   open = TRUE
 )
@@ -20,14 +20,14 @@ add_template(
 
 \item{dev_dir}{Name of directory for development Rmarkdown files. Default to "dev".}
 
-\item{flat_name}{Name of the file to write in dev.}
+\item{template_name}{Name of the file to write in dev.}
 
 \item{overwrite}{Whether to overwrite existing Rmd template file with same name}
 
 \item{open}{Logical. Whether to open file after creation}
 }
 \value{
-Create flat Rmd file(s) template(s) and return its (their) path
+Create Rmd file(s) template(s) and return its (their) path
 }
 \description{
 Add Rmd template
@@ -38,7 +38,6 @@ This function was adapted from the awesome \code{{fusen}} package.
 Choose \code{template} among the different templates available:
 \itemize{
 \item "dev_history": Template with functions commonly used during package development.
-This does not contain chunks to write your own functions.
 }
 }
 \examples{

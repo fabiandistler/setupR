@@ -26,3 +26,28 @@ test_that("add_template adds template", {
   expect_message(add_template(pkg = dummypackage))
 })
 unlink(dummypackage, recursive = TRUE)
+
+# local_file_ignore works ----
+test_that("local_file_ignore works", {
+  tmpdirectory <- tempfile()
+  dir.create(tmpdirectory)
+
+  anyfile <- file.path(tmpdirectory, "whatever")
+  local_file_ignore(file = anyfile, ignores = c("whatever", "^.other/$"))
+  lines <- readLines(anyfile)
+  expect_equal(
+    object = lines,
+    expected = c("whatever", "^.other/$")
+  )
+
+  # Add over
+  local_file_ignore(file = anyfile, ignores = c("whatever", "something.else"))
+  lines <- readLines(anyfile)
+  expect_equal(
+    object = lines,
+    expected = c("whatever", "^.other/$", "something.else")
+  )
+
+  # Clean
+  unlink(tmpdirectory)
+})
