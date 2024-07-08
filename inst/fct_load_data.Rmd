@@ -6,7 +6,7 @@ editor_options:
 ---
 
 This `{fusen}`flat file contains common code needed to load data into R. Simpy
-uncommend the lines you need and delete the rest. The `tests`chunk contains some examples for simple data validation.
+uncomment the lines you need and delete the rest. The `tests`chunk contains some examples for simple data validation.
 
 ```{r development, include=FALSE}
 library(testthat)
@@ -20,19 +20,49 @@ pkgload::load_all(export_all = FALSE)
 # fct_load_data
 
 ```{r function-fct_load_data}
-#' fct_load_data Title
+#' Create fct_load_data
 #'
-#' @return 1
+#' @param data_path Path to data.
+#' @return
+#' Load data and return `df_raw`of the loaded data.
+#' @importFrom rio import import_list
+#'
+#' @rdname fct_load_data
 #' @export
 #'
 #' @examples
-fct_load_data <- function() {
-  1
+fct_load_data <- function(data_path) {
+  tryCatch(
+    expr = {
+      # Change this part:
+      
+      # df_raw <- rio::import(
+      #   data_path,
+      #   which = NULL
+      # )
+      # For data with multiple objects or excel sheets:
+      # df_raw <- rio::import_list(data_path)
+      ##################
+
+      return(df_raw)
+    },
+    error = function(e) {
+      print(
+        sprintf(
+          "An error occurred in fct_load_data at %s : %s", Sys.time(),
+          e
+        )
+      )
+    }
+  )
 }
 ```
 
-```{r examples-fct_load_data}
-fct_load_data()
+```{r examples-fct_load_data,eval=FALSE}
+# For classical use in your package
+#' \dontrun{
+#' df_raw<- fct_load_data(data_path = "path/to/data")
+#' }
 ```
 
 ```{r tests-fct_load_data}
