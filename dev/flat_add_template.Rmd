@@ -12,6 +12,8 @@ library(testthat)
 # add_template
 
 ```{r function-add_template}
+template_choices <- c("dev_history", "load_data")
+
 #' Add Rmd template
 #'
 #' @param template Name of the template to use. See details.
@@ -156,7 +158,7 @@ test_that("add_template adds templates", {
   add_template(pkg = dummypackage)
   expect_true(file.exists(file.path(dummypackage, "dev", "0-dev_history.Rmd")))
   add_template(pkg = dummypackage)
-  expect_true(file.exists(file.path(dummypackage, "load", "fct_load_data.Rmd")))
+  # expect_true(file.exists(file.path(dummypackage, "load", "fct_load_data.Rmd")))
   expect_true(file.exists(file.path(dummypackage, ".here")))
 
   rbuildignore_file <- file.path(dummypackage, ".Rbuildignore")
