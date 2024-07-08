@@ -1,0 +1,48 @@
+---
+title: "flat_fct_load_data.Rmd empty"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+This `{fusen}`flat file contains common code needed to load data into R. Simpy
+uncommend the lines you need and delete the rest. The `tests`chunk contains some examples for simple data validation.
+
+```{r development, include=FALSE}
+library(testthat)
+```
+
+```{r development-load}
+# Load already included functions if relevant
+pkgload::load_all(export_all = FALSE)
+```
+
+# fct_load_data
+
+```{r function-fct_load_data}
+#' fct_load_data Title
+#'
+#' @return 1
+#' @export
+#'
+#' @examples
+fct_load_data <- function() {
+  1
+}
+```
+
+```{r examples-fct_load_data}
+fct_load_data()
+```
+
+```{r tests-fct_load_data}
+test_that("fct_load_data works", {
+  expect_true(inherits(fct_load_data, "function"))
+})
+```
+
+```{r development-inflate, eval=FALSE}
+# Run but keep eval=FALSE to avoid infinite loop
+# Execute in the console directly
+fusen::inflate(flat_file = "dev/flat_fct_load_data.Rmd", vignette_name = NA)
+```
