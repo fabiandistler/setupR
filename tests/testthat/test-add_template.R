@@ -6,9 +6,11 @@ dir.create(dummypackage)
 pkg_name <- basename(dummypackage)
 
 # add_template ----
-test_that("add_template adds template", {
-  add_template(pkg = dummypackage)
+test_that("add_template adds templates", {
+  add_template(pkg = dummypackage, template = "dev_history")
   expect_true(file.exists(file.path(dummypackage, "dev", "0-dev_history.Rmd")))
+  add_template(pkg = dummypackage, template = "load_data")
+  expect_true(file.exists(file.path(dummypackage, "dev", "fct_load_data.Rmd")))
   expect_true(file.exists(file.path(dummypackage, ".here")))
 
   rbuildignore_file <- file.path(dummypackage, ".Rbuildignore")

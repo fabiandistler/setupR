@@ -5,7 +5,7 @@
 \title{Add Rmd template}
 \usage{
 add_template(
-  template = c("dev_history"),
+  template = c("dev_history", "load_data"),
   pkg = ".",
   dev_dir = "dev",
   template_name = NULL,
@@ -38,6 +38,7 @@ This function was adapted from the awesome \code{{fusen}} package.
 Choose \code{template} among the different templates available:
 \itemize{
 \item "dev_history": Template with functions commonly used during package development.
+\item "load_data": \code{{fusen}}flat file for a data loading function template.
 }
 }
 \examples{
