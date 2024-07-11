@@ -12,11 +12,7 @@ library(testthat)
 # add_template
 
 ```{r function-add_template}
-template_choices <- c(
-  "dev_history",
-  "dev"
-)
-
+template_choices <- c("dev_history", "load_data")
 
 #' Add Rmd template
 #'
@@ -33,6 +29,7 @@ template_choices <- c(
 #' Choose `template` among the different templates available:
 #'
 #' - "dev_history": Template with functions commonly used during package development.
+#' - "load_data": `{fusen}`flat file for a data loading function template.
 #'
 #' @rdname add_template
 #' @return
@@ -41,7 +38,7 @@ template_choices <- c(
 #'
 #' @examples
 add_template <- function(
-    template = c("dev_history"),
+    template = c("dev_history", "load_data"),
     pkg = ".",
     dev_dir = "dev",
     template_name = NULL,
@@ -56,16 +53,16 @@ add_template <- function(
     template_name <- template
   }
 
-  if (template == "dev_history") {
-    dev_file_path <- character(0)
-  }
+  # if (template == "dev_history") {
+  dev_file_path <- character(0)
+  # }
 
   pkg <- normalizePath(pkg)
   full_dev_dir <- file.path(pkg, dev_dir)
   if (!dir.exists(full_dev_dir)) {
     dir.create(full_dev_dir)
   }
-  dev_file_path <- file.path(full_dev_dir, template_name) # "dev_history.Rmd")
+
 
   # Add the-dev-history when needed ----
   if (template %in% c("dev_history")) {
@@ -83,6 +80,26 @@ add_template <- function(
       )
       if (!copy) {
         stop("'0-dev_history.Rmd' could not be created in '", full_dev_dir, "'")
+      }
+      dev_file_path <- c(dev_file_path, dev_file)
+    }
+  }
+
+  if (template %in% c("load_data")) {
+    dev_file <- file.path(full_dev_dir, "fct_load_data.Rmd")
+    if (file.exists(dev_file) & !isTRUE(overwrite)) {
+      message(
+        "'fct_load_data.Rmd' already exists. It was not overwritten. ",
+        "Set `add_template(overwrite = TRUE)` if you want to do so."
+      )
+    } else {
+      copy <- file.copy(
+        system.file("fct_load_data.Rmd", package = "setupR"),
+        dev_file,
+        overwrite = overwrite
+      )
+      if (!copy) {
+        stop("'fct_load_data.Rmd' could not be created in '", full_dev_dir, "'")
       }
       dev_file_path <- c(dev_file_path, dev_file)
     }
@@ -157,9 +174,11 @@ dir.create(dummypackage)
 pkg_name <- basename(dummypackage)
 
 # add_template ----
-test_that("add_template adds template", {
-  add_template(pkg = dummypackage)
+test_that("add_template adds templates", {
+  add_template(pkg = dummypackage, template = "dev_history")
   expect_true(file.exists(file.path(dummypackage, "dev", "0-dev_history.Rmd")))
+  add_template(pkg = dummypackage, template = "load_data")
+  expect_true(file.exists(file.path(dummypackage, "dev", "fct_load_data.Rmd")))
   expect_true(file.exists(file.path(dummypackage, ".here")))
 
   rbuildignore_file <- file.path(dummypackage, ".Rbuildignore")
