@@ -1,6 +1,6 @@
 Package: setupR
 Title: Templates and Workflows for Data Science Projects
-Version: 0.0.0.9001
+Version: 0.0.0.9002
 Authors@R: 
     person("Fabian", "Distler", , "fabian.distler@gmx.net", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-1438-0724"))
