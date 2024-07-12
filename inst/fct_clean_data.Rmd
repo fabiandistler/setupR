@@ -25,7 +25,8 @@ pkgload::load_all(export_all = FALSE)
 #' fct_clean_data returns cleaned raw data.
 #'
 #' @param df_raw Raw data.
-#' @return df_cleaned Cleaned data frame.
+#' @return
+#' A cleaned data frame.
 #'
 #' @rdname fct_clean_data
 #' @export
@@ -34,12 +35,68 @@ fct_clean_data <- function(df_raw) {
     expr = {
       # Change this part:
 
-      # df_raw <- rio::import(
-      #   data_path,
-      #   which = NULL
-      # )
-      # For data with multiple objects or excel sheets:
-      # df_raw <- rio::import_list(data_path)
+      # df_cleaned <- df_raw %>%
+      #   # Standardize column name syntax
+      #   janitor::clean_names() %>%
+      #   # Manually re-name columns
+      #   # NEW name # OLD name
+      #   rename(new_name = old_name) %>%
+      #   # Remove columns
+      #   select(-c(column1, column2, etc.)) %>%
+      #   # De-duplicate
+      #   janitor::get_dupes() %>%
+      #   distinct() %>%
+      #   # Add column
+      #   mutate(bmi = wt_kg / (ht_cm / 100)^2) %>%
+      #   # Convert class of columns
+      #   mutate(across(contains("date"), as.Date),
+      #     generation = as.numeric(generation),
+      #     age        = as.numeric(age)
+      #   ) %>%
+      #   # Recode factor levels
+      #   mutate(factor_column = fct_recode(factor_column,
+      #     # OLD = NEW
+      #     "old_level" = "new_level",
+      #     "other" = "Other"
+      #   )) %>%
+      #   mutate(hospital = replace_na(hospital, "Missing")) %>%
+      #   # Create categories
+      #   # explicit factor levels for NA with fct_na_level_to_value()
+      #   mutate(
+      #     # Age categories: custom
+      #     age_cat = epikit::age_categories(age_years, breakers = c(0, 5, 10, 15, 20, 30, 50, 70)),
+      #
+      #     # Age categories: 0 to 85 by 5s
+      #     age_cat5 = epikit::age_categories(age_years, breakers = seq(0, 85, 5))
+      #   ) %>%
+      #   # Change factor levels
+      #   mutate(delay_cat = fct_relevel(delay_cat, c("<2 days", "2-5 days", ">5 days"))) %>%
+      #   # Matchmaker package to use dictionary
+      #   matchmaker::match_df(
+      #     dictionary = cleaning_dict, # name of your dictionary
+      #     from = "from", # column with values to be replaced (default is col 1)
+      #     to = "to", # column with final values (default is col 2)
+      #     by = "col" # column with column names (default is col 3)
+      #   ) %>%
+      #   # Remove NA containing rows
+      #   drop_na() %>%
+      #   # Cleaning dates
+      #   mutate(date_onset = lubridate::dmy(date_onset)) %>%
+      #   # Excel dates
+      #   mutate(date_onset = as.numeric(date_onset)) %>% # ensure class is numeric
+      #   mutate(date_onset = as.Date(date_onset, origin = "1899-12-30")) %>% # convert to date using Excel origin
+      #   # Can also try parsedate::parse_date()
+      #   # Pivoting
+      #   pivot_longer(
+      #     cols = -id,
+      #     names_to = c("observation", ".value"),
+      #     names_sep = "_"
+      #   ) %>%
+      #   pivot_wider(
+      #     id_cols = age_cat,
+      #     names_from = gender,
+      #     values_from = n
+      #   )
       ##################
 
       df_cleaned
