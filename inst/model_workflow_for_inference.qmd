@@ -1,0 +1,111 @@
+---
+title: Model Workflow For Inference
+author: "John Doe"
+date-modified: "`r paste('Last rendered:', Sys.Date())`"
+keep-md: false
+format: 
+  html:
+    default: true
+    code-fold: true
+    toc: true
+    self-contained: true
+    fig-width: 6
+    fig-asp: 0.618
+    out-width: "70%"
+    fig-align: center
+    highlight-style: github
+  pptx:
+    # reference-doc: template.pptx can add template to folder or quarto
+    fig-format: png
+    fig-dpi: 300
+    fig-width: 10
+    fig-asp: 0.618
+    fig-align: center
+---
+
+```{r setup, include=FALSE}
+# Ensures the package "pacman" is installed
+if (!require("pacman")) install.packages("pacman")
+
+# Add needed packages here
+pacman::p_load()
+```
+
+# Load cleaned data.
+```{r}
+df <- rio::import(df_cleaned)
+```
+
+# Prepare data.
+```{r}
+# Select outcome and potential predictors.
+df_model <- df |>
+  select() |>
+  # If no imputation is used we need to do a complete case analysis. There are
+  # no missing values allowed anywhere.
+  drop_na()
+```
+
+At this point, we are looking for very obvious problems, such as values
+that are highly unusual, extremely skewed variables, or categorical variables
+with sparse levels. We also want to check that all categorical variables are
+coded as factors.
+
+
+# Univariate analysis
+```{r}
+# Only use predictors with p < 0.25
+gtsummary::tbl_uvregression(
+  method = glm, ## define regression want to run (e.g. generalised linear model)
+  y = outcome,
+  method.args = list(family = binomial), ## define what type of glm want to run
+  exponentiate = TRUE ## exponentiate to produce odds ratios (rather than log odds)
+) |>
+  gtsummary::bold_p(t = 0.25)
+```
+
+# Fit model
+Refer to https://www.bookdown.org/rwnahhas/RMPH/overview-taxonomy.html for
+help on deciding which model to choose
+```{r}
+m1 <- lm(y ~ ., data = df_model)
+```
+
+
+## Check model assumptions
+How to fix problems: https://easystats.github.io/performance/articles/check_model.html
+```{r}
+performance::check_model(m1)
+
+# Only keep significant predictors unless good reason to keep them.
+performance::check_model(m1) # again and see if improved
+```
+
+## Show model results.
+```{r}
+parameters::model_parameters(m1)
+easystats::model_dashboard(m1)
+gtsummary::tbl_regression()
+```
+
+# Compare different models.
+```{r}
+performance::compare_performance(m1, m2, m3, m4, rank = TRUE)
+parameters::test_performance()
+```
+
+# Automatic reports
+# Can use report package for automatic report.
+```{r}
+report::report(m1)
+```
+
+## Tricks
+Add conditional wrappers to only render chunks for certain formats. E.g. you
+only want to render certain chunks for Powerpoint and all chunks for html:
+<!-- ::: {.content-visible when-format="html"} -->
+<!-- ::: -->
+Then add slides like this
+
+## Slide title
+slide content

@@ -15,7 +15,7 @@ format:
     fig-align: center
     highlight-style: github
   pptx:
-    # reference-doc: template.pptx can add coreva template to folder or quarto
+    # reference-doc: template.pptx can add template to folder or quarto
     fig-format: png
     fig-dpi: 300
     fig-width: 10
@@ -23,162 +23,49 @@ format:
     fig-align: center
 ---
 
-# Setup
 ```{r setup, include=FALSE}
 # Ensures the package "pacman" is installed
 if (!require("pacman")) install.packages("pacman")
 
-pacman::p_install(
-  styler,
-  usethis
-)
 # Add needed packages here
 pacman::p_load()
 ```
 
-```{r, eval=FALSE}
-# Store sensitive information in a .Renviron file
-
-# Run once:
-
-# Use version control
-usethis::use_git()
-# Never commit .Renviron!
-usethis::use_git_ignore(".Renviron")
-usethis::use_git_ignore(".Rprofile")
-# Add other common files to .gitignore.
-usethis::use_git_ignore("*.qs")
-usethis::use_git_ignore("*.rds")
-usethis::use_git_ignore("*.html")
-
-# Add DATA_PATH= on server here use / instead of \
-usethis::edit_r_environ("project")
-
-# Useful startup
-# Add this and other code that you want:
-
-# # warn on partial matches
-# options(warnPartialMatchAttr = TRUE,
-#         warnPartialMatchDollar = TRUE,
-#         warnPartialMatchArgs = TRUE)
-#
-# # enable autocompletions for package names in
-# # `require()`, `library()`
-# utils::rc.settings(ipck = TRUE)
-#
-# # warnings are errors
-# options(warn = 2)
-#
-# # fancy quotes are annoying and lead to
-# # 'copy + paste' bugs / frustrations
-# options(useFancyQuotes = FALSE)
-
-usethis::edit_r_profile("project")
-
-# Session restart is required now.
-```
-
-
-
-# Exploratory data analysis
+# Load cleaned data.
 ```{r}
-radiant::radiant()
-
-DataExplorer::create_report()
-
-ggquickeda::run_ggquickeda()
-
-esquisse::esquisser()
-
-GGally::ggduo()
-
-
-glimpse()
-
-skimr::skim()
-
-gtsummary::theme_gtsummary_compact()
-
-gtsummary::tbl_summary(
-  data,
-  by = NULL,
-  label = NULL,
-  statistic = NULL,
-  digits = NULL,
-  type = NULL,
-  value = NULL,
-  missing_text = "Missing",
-  sort = NULL,
-  percent = NULL
-) %>%
-  gtsummary::bold_labels() %>%
-  gtsummary::add_p(pvalue_fun = ~ gtsummary::style_pvalue(.x, digits = 3)) %>%
-  gtsummary::bold_p() %>%
-  gtsummary::modify_spanning_header(c("stat_1", "stat_2") ~ "**XX used**") %>%
-  gtsummary::separate_p_footnotes() %>%
-  gtsummary::as_gt() %>%
-  gt::gtsave("XX_data_overview.png")
-
-# Correlation
-correlate() %>% # create correlation table (using default pearson)
-  shave()
-correlation_tab # print
-## plot correlations
-rplot(correlation_tab)
+df <- rio::import(df_cleaned)
 ```
 
-# Workflow for models
+
+```{r, eval=FALSE,include=FALSE}
+# These are interactive helpers which can we useful to get a quick overview of
+# your data.
+
+radiant::radiant(df)
+
+DataExplorer::create_report(df)
+
+ggquickeda::run_ggquickeda(df)
+
+esquisse::esquisser(df)
+
+GGally::ggduo(df)
+```
+
+# Look at the data.
 ```{r}
-# Select outcome and potential predictors.
-df_model <- df_clean %>%
-  select() %>%
-  # If no imputation is used we need to do a complete case analysis. There are
-  # no missing values allowed anywhere.
-  drop_na()
+dplyr::glimpse(df)
 
-# EDA: At this point, we are looking for very obvious problems, such as values
-# that are highly unusual, extremely skewed variables, or categorical variables
-# with sparse levels. We also want to check that all categorical variables are
-# coded as factors.
+str(df)
 
-# Univariate analysis
-# Only use predictors with p < 0.25
-gtsummary::tbl_uvregression( ## produce univariate table
-  method = glm, ## define regression want to run (generalised linear model)
-  y = outcome, ## define outcome variable
-  method.args = list(family = binomial), ## define what type of glm want to run (logistic)
-  exponentiate = TRUE ## exponentiate to produce odds ratios (rather than log odds)
-) %>%
-  gtsummary::bold_p(t = 0.25)
+skimr::skim(df)
 
-
-# Fit model
-# Refer to https://www.bookdown.org/rwnahhas/RMPH/overview-taxonomy.html for
-# help on deciding which model to choose
-
-# Check model assumptions
-# How to fix problems: https://easystats.github.io/performance/articles/check_model.html
-performance::check_model()
-
-# Only keep significant predictors unless good reason to keep them.
-performance::check_model() # again and see if improved
-
-
-# Show model results
-parameters::model_parameters()
-easystats::model_dashboard()
-gtsummary::tbl_regression()
-
-# Compare models
-performance::compare_performance(model1, model2, model3, model4, rank = TRUE)
-parameters::test_performance()
-
-# Automatic reports
-# Can use report package for automatic report.
+Hmisc::describe(df)
 ```
 
-# Powerpoint slides
-Use this wrappter to not add dev code into slides
+## Tricks
+Add conditional wrappers to only render chunks for certain formats. E.g. you
+only want to render certain chunks for Powerpoint and all chunks for html:
 <!-- ::: {.content-visible when-format="html"} -->
 <!-- ::: -->
 Then add slides like this
