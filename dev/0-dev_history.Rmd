@@ -90,6 +90,9 @@ usethis::use_tidy_contributing()
 usethis::use_tidy_issue_template()
 usethis::use_tidy_github_labels()
 usethis::use_tidy_upkeep_issue()
+usethis::use_lifecycle()
+usethis::use_lifecycle_badge("experimental")
+usethis::use_tidy_description()
 ```
 
 ## Use everytime needed

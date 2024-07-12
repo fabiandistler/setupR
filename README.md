@@ -8,6 +8,8 @@
 [![R-CMD-check](https://github.com/fabiandistler/setupR/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/fabiandistler/setupR/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/fabiandistler/setupR/branch/main/graph/badge.svg)](https://app.codecov.io/gh/fabiandistler/setupR?branch=main)
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
 The goal of setupR is to help with common data science workflows. There
@@ -20,8 +22,8 @@ and more. The package makes heavy use of great packages like `{fusen}`,
 You can install the development version of setupR like so:
 
 ``` r
-# install.packages("remotes")
-remotes::install_github("https://github.com/fabiandistler/setupR")  
+# install.packages("pak")
+pak::pak("fabiandistler/setupR")   
 ```
 
 ## Documentation
