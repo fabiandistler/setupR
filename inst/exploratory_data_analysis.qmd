@@ -1,0 +1,74 @@
+---
+title: Exploratory Data Analysis
+author: "John Doe"
+date-modified: "`r paste('Last rendered:', Sys.Date())`"
+keep-md: false
+format: 
+  html:
+    default: true
+    code-fold: true
+    toc: true
+    self-contained: true
+    fig-width: 6
+    fig-asp: 0.618
+    out-width: "70%"
+    fig-align: center
+    highlight-style: github
+  pptx:
+    # reference-doc: template.pptx can add template to folder or quarto
+    fig-format: png
+    fig-dpi: 300
+    fig-width: 10
+    fig-asp: 0.618
+    fig-align: center
+---
+
+```{r setup, include=FALSE}
+# Ensures the package "pacman" is installed
+if (!require("pacman")) install.packages("pacman")
+
+# Add needed packages here
+pacman::p_load()
+```
+
+# Load cleaned data.
+```{r}
+df <- rio::import(df_cleaned)
+```
+
+
+```{r, eval=FALSE,include=FALSE}
+# These are interactive helpers which can we useful to get a quick overview of
+# your data.
+
+radiant::radiant(df)
+
+DataExplorer::create_report(df)
+
+ggquickeda::run_ggquickeda(df)
+
+esquisse::esquisser(df)
+
+GGally::ggduo(df)
+```
+
+# Look at the data.
+```{r}
+dplyr::glimpse(df)
+
+str(df)
+
+skimr::skim(df)
+
+Hmisc::describe(df)
+```
+
+## Tricks
+Add conditional wrappers to only render chunks for certain formats. E.g. you
+only want to render certain chunks for Powerpoint and all chunks for html:
+<!-- ::: {.content-visible when-format="html"} -->
+<!-- ::: -->
+Then add slides like this
+
+## Slide title
+slide content
