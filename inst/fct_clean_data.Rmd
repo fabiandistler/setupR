@@ -1,0 +1,76 @@
+---
+title: "flat_fct_clean_data.Rmd empty"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+This `{fusen}`flat file contains common code needed to clean data. Simpy
+un-comment the lines you need and delete the rest. The `tests`chunk contains some examples for simple data validation.
+
+```{r development, include=FALSE}
+library(testthat)
+```
+
+```{r development-load}
+# Load already included functions if relevant
+pkgload::load_all(export_all = FALSE)
+```
+
+# fct_clean_data
+
+```{r function-fct_clean_data}
+#' Clean data with fct_clean_data
+#'
+#' fct_clean_data returns cleaned raw data.
+#'
+#' @param df_raw Raw data.
+#' @return df_cleaned Cleaned data frame.
+#'
+#' @rdname fct_clean_data
+#' @export
+fct_clean_data <- function(df_raw) {
+  tryCatch(
+    expr = {
+      # Change this part:
+
+      # df_raw <- rio::import(
+      #   data_path,
+      #   which = NULL
+      # )
+      # For data with multiple objects or excel sheets:
+      # df_raw <- rio::import_list(data_path)
+      ##################
+
+      df_cleaned
+    },
+    error = function(e) {
+      print(
+        sprintf(
+          "An error occurred in fct_clean_data at %s : %s", Sys.time(),
+          e
+        )
+      )
+    }
+  )
+}
+```
+
+```{r examples-fct_clean_data,eval=FALSE}
+# For classical use in your package
+#' \dontrun{
+#' df_cleaned <- fct_clean_data(df_raw)
+#' }
+```
+
+```{r tests-fct_clean_data}
+test_that("fct_clean_data works", {
+  expect_true(inherits(fct_clean_data, "function"))
+})
+```
+
+```{r development-inflate, eval=FALSE}
+# Run but keep eval=FALSE to avoid infinite loop
+# Execute in the console directly
+fusen::inflate(flat_file = "dev/flat_fct_clean_data.Rmd", vignette_name = NA)
+```
