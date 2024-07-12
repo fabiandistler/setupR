@@ -103,7 +103,7 @@ fusen::add_flat_template("add")
 ```
 
 # Share the package
-test
+
 ```{r, eval=FALSE}
 # set and try pkgdown documentation website locally
 usethis::use_pkgdown()
