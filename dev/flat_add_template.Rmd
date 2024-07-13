@@ -50,7 +50,7 @@ add_template <- function(
     dir.create(full_dev_dir)
   }
 
-  use_template(
+  usethis::use_template(
     template = template[1],
     save_as = paste0("dev/", save_as),
     data = list(), # Use to autofill fields?

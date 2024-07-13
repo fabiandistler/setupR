@@ -7,38 +7,27 @@
 add_template(
   template = c("dev_history.Rmd", "fct_load_data.Rmd", "fct_clean_data.Rmd",
     "exploratory_data_analysis.qmd", "model_workflow_for_inference.qmd"),
-  pkg = ".",
   save_as = template,
-  open = TRUE
+  overwrite = FALSE,
+  open = FALSE
 )
 }
 \arguments{
-\item{template}{Name of the template to use. See details.}
+\item{template}{Default: c("dev_history.Rmd", "fct_load_data.Rmd",
+"fct_clean_data.Rmd", "exploratory_data_analysis.qmd",
+"model_workflow_for_inference.qmd").}
 
-\item{pkg}{Path where to save file}
+\item{save_as}{Name of output file.}
 
-\item{open}{Logical. Whether to open file after creation}
+\item{overwrite}{Logical. Whether to overwrite existing template file.}
 
-\item{overwrite}{Whether to overwrite existing Rmd template file with same name}
-
-\item{dev_dir}{Name of directory for development Rmarkdown files. Default to "dev".}
-
-\item{template_name}{Name of the file to write in dev.}
+\item{open}{Logical. Whether to open file after creation.}
 }
 \value{
 Create Rmd file(s) template(s) and return its (their) path
 }
 \description{
-Add Rmd template
-}
-\details{
-This function was adapted from the awesome \code{{fusen}} package.
-
-Choose \code{template} among the different templates available:
-\itemize{
-\item "dev_history": Template with functions commonly used during package development.
-\item "load_data": \code{{fusen}}flat file for a data loading function template.
-}
+Choose from various templates to be added to your project.
 }
 \examples{
 # For classical use in your package

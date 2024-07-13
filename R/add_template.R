@@ -2,21 +2,14 @@
 
 #' Add Rmd template
 #'
-#' @param template Name of the template to use. See details.
-#' @param pkg Path where to save file
-#' @param overwrite Whether to overwrite existing Rmd template file with same name
-#' @param open Logical. Whether to open file after creation
-#' @param dev_dir Name of directory for development Rmarkdown files. Default to "dev".
-#' @param template_name Name of the file to write in dev.
+#' Choose from various templates to be added to your project.
 #'
-#' @details
-#' This function was adapted from the awesome `{fusen}` package.
-#'
-#' Choose `template` among the different templates available:
-#'
-#' - "dev_history": Template with functions commonly used during package development.
-#' - "load_data": `{fusen}`flat file for a data loading function template.
-#'
+#' @param template Default: c("dev_history.Rmd", "fct_load_data.Rmd",
+#' "fct_clean_data.Rmd", "exploratory_data_analysis.qmd",
+#' "model_workflow_for_inference.qmd").
+#' @param save_as Name of output file.
+#' @param overwrite Logical. Whether to overwrite existing template file.
+#' @param open Logical. Whether to open file after creation.
 #' @rdname add_template
 #' @return
 #' Create Rmd file(s) template(s) and return its (their) path
@@ -34,41 +27,28 @@ add_template <- function(
       "exploratory_data_analysis.qmd",
       "model_workflow_for_inference.qmd"
     ),
-    pkg = ".",
     save_as = template,
-    open = TRUE) {
-  tryCatch(
-    expr = {
-      # browser()
-      # Check if the file already exists
-      pkg <- normalizePath(pkg)
-      full_dev_dir <- file.path(pkg, "dev")
+    overwrite = FALSE,
+    open = FALSE) {
+  # Check if the file already exists
+  pkg <- normalizePath(".")
+  full_dev_dir <- file.path(pkg, "dev")
 
-      file_path <- file.path(full_dev_dir, save_as[1])
-      if (file.exists(file_path)) {
-        stop(sprintf("The file %s already exists. Please choose a different
-                     name or delete the existing file.", file_path))
-      }
+  file_path <- file.path(full_dev_dir, save_as[1])
+  if (file.exists(file_path) && overwrite) {
+    cli::cli_abort(c("{.var file_path} already exists. Please choose a
+                     different name or delete the existing file."))
+  }
 
-      if (!dir.exists(full_dev_dir)) {
-        dir.create(full_dev_dir)
-      }
+  if (!dir.exists(full_dev_dir)) {
+    dir.create(full_dev_dir)
+  }
 
-      use_template(
-        template = template[1],
-        save_as = paste0("dev/", template[1]),
-        # data = list(), # Use to autofill fields?
-        open = open,
-        package = "setupR"
-      )
-    },
-    error = function(e) {
-      print(
-        sprintf(
-          "An error occurred in add_template at %s : %s", Sys.time(),
-          e
-        )
-      )
-    }
+  usethis::use_template(
+    template = template[1],
+    save_as = paste0("dev/", save_as),
+    data = list(), # Use to autofill fields?
+    open = open,
+    package = "setupR"
   )
 }
