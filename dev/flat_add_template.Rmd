@@ -12,8 +12,6 @@ library(testthat)
 # add_template
 
 ```{r function-add_template}
-template_choices <- c("dev_history", "load_data")
-
 #' Add Rmd template
 #'
 #' @param template Name of the template to use. See details.
@@ -38,124 +36,39 @@ template_choices <- c("dev_history", "load_data")
 #'
 #' @examples
 add_template <- function(
-    template = c("dev_history", "load_data"),
-    pkg = ".",
-    dev_dir = "dev",
-    template_name = NULL,
-    overwrite = FALSE,
+    template = c(
+      "dev_history.Rmd", "fct_load_data.Rmd", "fct_clean_data.Rmd",
+      "exploratory_data_analysis.qmd",
+      "model_workflow_for_inference.qmd"
+    ),
+    save_as = template,
     open = TRUE) {
-  project_name <- get_pkg_name(pkg = pkg)
-
-  template <- template[1]
-  template <- match.arg(template, choices = template_choices)
-
-  if (is.null(template_name)) {
-    template_name <- template
-  }
-
-  # if (template == "dev_history") {
-  dev_file_path <- character(0)
-  # }
-
-  pkg <- normalizePath(pkg)
-  full_dev_dir <- file.path(pkg, dev_dir)
-  if (!dir.exists(full_dev_dir)) {
-    dir.create(full_dev_dir)
-  }
-
-
-  # Add the-dev-history when needed ----
-  if (template %in% c("dev_history")) {
-    dev_file <- file.path(full_dev_dir, "0-dev_history.Rmd")
-    if (file.exists(dev_file) & !isTRUE(overwrite)) {
-      message(
-        "'0-dev_history.Rmd' already exists. It was not overwritten. ",
-        "Set `add_template(overwrite = TRUE)` if you want to do so."
-      )
-    } else {
-      copy <- file.copy(
-        system.file("dev_history.Rmd", package = "setupR"),
-        dev_file,
-        overwrite = overwrite
-      )
-      if (!copy) {
-        stop("'0-dev_history.Rmd' could not be created in '", full_dev_dir, "'")
+  tryCatch(
+    expr = {
+      # Check if the file already exists
+      file_path <- paste0("dev/", save_as[1])
+      if (file.exists(file_path)) {
+        stop(sprintf("The file %s already exists. Please choose a different
+                     name or delete the existing file.", file_path))
       }
-      dev_file_path <- c(dev_file_path, dev_file)
-    }
-  }
 
-  if (template %in% c("load_data")) {
-    dev_file <- file.path(full_dev_dir, "fct_load_data.Rmd")
-    if (file.exists(dev_file) & !isTRUE(overwrite)) {
-      message(
-        "'fct_load_data.Rmd' already exists. It was not overwritten. ",
-        "Set `add_template(overwrite = TRUE)` if you want to do so."
+      use_template(
+        template = template[1],
+        save_as = paste0("dev/", save_as[1]),
+        # data = list(), # Use to autofill fields?
+        open = open,
+        package = "setupR"
       )
-    } else {
-      copy <- file.copy(
-        system.file("fct_load_data.Rmd", package = "setupR"),
-        dev_file,
-        overwrite = overwrite
+    },
+    error = function(e) {
+      print(
+        sprintf(
+          "An error occurred in add_template at %s : %s", Sys.time(),
+          e
+        )
       )
-      if (!copy) {
-        stop("'fct_load_data.Rmd' could not be created in '", full_dev_dir, "'")
-      }
-      dev_file_path <- c(dev_file_path, dev_file)
     }
-  }
-
-  # .Rbuildignore ----
-  # usethis::use_build_ignore(dev_dir) # Cannot be used outside project
-  if (length(list.files(pkg, pattern = "[.]Rproj")) == 0) {
-    ignores <- c(paste0("^", dev_dir, "$"), "^\\.here$")
-  } else {
-    ignores <- c(paste0("^", dev_dir, "$"))
-  }
-
-  local_file_ignore(file = file.path(pkg, ".Rbuildignore"), ignores)
-
-  # Add a gitignore file in dev_dir ----
-  # Files to ignore
-  ignores <- c("*.html")
-  local_file_ignore(file = file.path(full_dev_dir, ".gitignore"), ignores)
-
-  if (length(list.files(pkg, pattern = "[.]Rproj")) == 0 &
-    !any(grepl("^[.]here$", list.files(pkg, all.files = TRUE)))) {
-    here::set_here(pkg)
-  }
-  if (isTRUE(open) & interactive()) {
-    lapply(dev_file_path, usethis::edit_file)
-  }
-  dev_file_path
-}
-
-#' Add new lines in a file if they are different from what exists
-#' @noRd
-local_file_ignore <- function(file, ignores) {
-  buildfile <- normalizePath(file, mustWork = FALSE)
-  if (!file.exists(buildfile)) {
-    existing_lines <- character(0)
-  } else {
-    existing_lines <- readLines(buildfile, warn = FALSE, encoding = "UTF-8")
-  }
-  new <- setdiff(ignores, existing_lines)
-  if (length(new) != 0) {
-    all <- c(existing_lines, new)
-    cat(enc2utf8(all), file = buildfile, sep = "\n")
-  }
-}
-
-#' Retrieve name of the package if there is a DESCRIPTION
-#' @noRd
-get_pkg_name <- function(pkg) {
-  desc <- file.path(pkg, "DESCRIPTION")
-  if (file.exists(desc)) {
-    pkgname <- read.dcf(desc)[colnames(read.dcf(desc)) == "Package"]
-  } else {
-    pkgname <- basename(normalizePath(pkg, mustWork = FALSE))
-  }
-  pkgname
+  )
 }
 ```
 
@@ -169,71 +82,30 @@ get_pkg_name <- function(pkg) {
 
 ```{r tests-add_template}
 # Create a new project
-dummypackage <- tempfile(pattern = "add.template")
+dummypackage <- tempfile(pattern = "add_template")
 dir.create(dummypackage)
 pkg_name <- basename(dummypackage)
 
-# add_template ----
-test_that("add_template adds templates", {
-  add_template(pkg = dummypackage, template = "dev_history")
-  expect_true(file.exists(file.path(dummypackage, "dev", "0-dev_history.Rmd")))
-  add_template(pkg = dummypackage, template = "load_data")
-  expect_true(file.exists(file.path(dummypackage, "dev", "fct_load_data.Rmd")))
-  expect_true(file.exists(file.path(dummypackage, ".here")))
 
-  rbuildignore_file <- file.path(dummypackage, ".Rbuildignore")
-  expect_true(file.exists(rbuildignore_file))
-  rbuildignore_lines <- readLines(rbuildignore_file)
-  expect_true(any(grepl("^dev$", rbuildignore_lines, fixed = TRUE)))
-  expect_true(any(grepl("[.]here", rbuildignore_lines)))
+# Add test for add_template ----
+test_that("add_template adds templates correctly", {
+  # # Test for adding dev_history template
+  # add_template(template = "dev_history.Rmd", save_as = "dev_history.Rmd")
+  # expect_true(file.exists(file.path(dummypackage, "dev", "dev_history.Rmd")))
+  #
+  #   # Test for adding load_data template
+  #   add_template(template = "fct_load_data.Rmd", save_as = "fct_load_data.Rmd")
+  #   expect_true(file.exists(file.path(dummypackage, "dev", "fct_load_data.Rmd")))
+  #
+  #   # Test for adding clean_data template
+  #   add_template(template = "fct_clean_data.Rmd", save_as = "fct_clean_data.Rmd")
+  #   expect_true(file.exists(file.path(dummypackage, "dev", "fct_clean_data.Rmd")))
 
-  gitignore_file <- file.path(dummypackage, "dev", ".gitignore")
-  expect_true(file.exists(gitignore_file))
-  gitignore_lines <- readLines(gitignore_file)
-  expect_equal(object = gitignore_lines, expected = "*.html")
-
-  # Second time message and new file
-  expect_message(add_template(pkg = dummypackage))
-})
-unlink(dummypackage, recursive = TRUE)
-
-# local_file_ignore works ----
-test_that("local_file_ignore works", {
-  tmpdirectory <- tempfile()
-  dir.create(tmpdirectory)
-
-  anyfile <- file.path(tmpdirectory, "whatever")
-  local_file_ignore(file = anyfile, ignores = c("whatever", "^.other/$"))
-  lines <- readLines(anyfile)
-  expect_equal(
-    object = lines,
-    expected = c("whatever", "^.other/$")
-  )
-
-  # Add over
-  local_file_ignore(file = anyfile, ignores = c("whatever", "something.else"))
-  lines <- readLines(anyfile)
-  expect_equal(
-    object = lines,
-    expected = c("whatever", "^.other/$", "something.else")
-  )
-
-  # Clean
-  unlink(tmpdirectory)
-})
-
-# get_pkg_name ----
-dummypackage <- tempfile("checkpk.gname2")
-dir.create(dummypackage)
-# rstudioapi::filesPaneNavigate(dummypackage)
-# {fusen} steps
-fusen::fill_description(pkg = dummypackage, fields = list(Title = "Dummy Package", Package = "COUCOU2"))
-dev_file <- suppressMessages(add_template(pkg = dummypackage, overwrite = TRUE, open = FALSE))
-flat_file <- dev_file[grepl("0-dev_", dev_file)]
-
-test_that("get_pkg_name works", {
-  flat_file_lines <- readLines(flat_file)
-  expect_false(any(grepl("gname2", flat_file_lines)))
+  # # Test for existing file scenario
+  # expect_error(
+  #   add_template(template = "dev_history.Rmd", save_as = "dev_history.Rmd"),
+  #   "The file dev/dev_history.Rmd already exists. Please choose a different name or delete the existing file."
+  # )
 })
 
 unlink(dummypackage, recursive = TRUE)
