@@ -5,11 +5,10 @@
 \title{Add Rmd template}
 \usage{
 add_template(
-  template = c("dev_history", "load_data"),
+  template = c("dev_history.Rmd", "fct_load_data.Rmd", "fct_clean_data.Rmd",
+    "exploratory_data_analysis.qmd", "model_workflow_for_inference.qmd"),
   pkg = ".",
-  dev_dir = "dev",
-  template_name = NULL,
-  overwrite = FALSE,
+  save_as = template,
   open = TRUE
 )
 }
@@ -18,13 +17,13 @@ add_template(
 
 \item{pkg}{Path where to save file}
 
-\item{dev_dir}{Name of directory for development Rmarkdown files. Default to "dev".}
-
-\item{template_name}{Name of the file to write in dev.}
+\item{open}{Logical. Whether to open file after creation}
 
 \item{overwrite}{Whether to overwrite existing Rmd template file with same name}
 
-\item{open}{Logical. Whether to open file after creation}
+\item{dev_dir}{Name of directory for development Rmarkdown files. Default to "dev".}
+
+\item{template_name}{Name of the file to write in dev.}
 }
 \value{
 Create Rmd file(s) template(s) and return its (their) path
@@ -42,6 +41,12 @@ Choose \code{template} among the different templates available:
 }
 }
 \examples{
+# For classical use in your package
+\dontrun{
+# add only the dev_history file in an existing package
+add_template()
+}
+
 # For classical use in your package
 \dontrun{
 # add only the dev_history file in an existing package
