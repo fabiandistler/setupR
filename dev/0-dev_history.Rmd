@@ -93,7 +93,6 @@ usethis::use_tidy_upkeep_issue()
 usethis::use_lifecycle()
 usethis::use_lifecycle_badge("experimental")
 usethis::use_tidy_description()
-usethis::use_import_from("usethis", "use_template")
 ```
 
 ## Use everytime needed
