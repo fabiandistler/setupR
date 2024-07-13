@@ -79,19 +79,8 @@ add_template <- function(
     }
   )
 }
-
-#' Retrieve name of the package if there is a DESCRIPTION
-#' @noRd
-get_pkg_name <- function(pkg) {
-  desc <- file.path(pkg, "DESCRIPTION")
-  if (file.exists(desc)) {
-    pkgname <- read.dcf(desc)[colnames(read.dcf(desc)) == "Package"]
-  } else {
-    pkgname <- basename(normalizePath(pkg, mustWork = FALSE))
-  }
-  pkgname
-}
 ```
+
 
 ```{r examples-add_template,eval=FALSE}
 # For classical use in your package
@@ -102,108 +91,6 @@ get_pkg_name <- function(pkg) {
 ```
 
 ```{r tests-add_template}
-add_template <- function(
-    template = c(
-      "dev_history.Rmd", "fct_load_data.Rmd", "fct_clean_data.Rmd",
-      "exploratory_data_analysis.qmd",
-      "model_workflow_for_inference.qmd"
-    ),
-    pkg = ".",
-    save_as = template,
-    open = FALSE) {
-  tryCatch(
-    expr = {
-      # Check if the file already exists
-      pkg <- normalizePath(pkg)
-      full_dev_dir <- file.path(pkg, "dev")
-
-      file_path <- file.path(full_dev_dir, save_as[1])
-      if (file.exists(file_path)) {
-        stop(sprintf("The file %s already exists. Please choose a different
-                     name or delete the existing file.", file_path))
-      }
-
-      if (!dir.exists(full_dev_dir)) {
-        dir.create(full_dev_dir)
-      }
-
-      use_template(
-        template = template[1],
-        save_as = paste0("dev/", template[1]),
-        # data = list(), # Use to autofill fields?
-        open = open,
-        package = "setupR"
-      )
-    },
-    error = function(e) {
-      print(
-        sprintf(
-          "An error occurred in add_template at %s : %s", Sys.time(),
-          e
-        )
-      )
-    }
-  )
-}
-
-#' Retrieve name of the package if there is a DESCRIPTION
-#' @noRd
-get_pkg_name <- function(pkg) {
-  desc <- file.path(pkg, "DESCRIPTION")
-  if (file.exists(desc)) {
-    pkgname <- read.dcf(desc)[colnames(read.dcf(desc)) == "Package"]
-  } else {
-    pkgname <- basename(normalizePath(pkg, mustWork = FALSE))
-  }
-  pkgname
-}
-```
-
-```{r examples-add_template,eval=FALSE}
-# For classical use in your package
-#' \dontrun{
-# add only the dev_history file in an existing package
-#' add_template()
-#' }
-```
-
-```{r tests-add_template}
-# # Create a new project
-# dummypackage <- tempfile(pattern = "add_template")
-# dir.create(dummypackage)
-# pkg_name <- basename(dummypackage)
-#
-# # Helper function to set the working directory
-# with_project <- function(code) {
-#   old <- setwd(dummypackage)
-#   on.exit(setwd(old), add = TRUE)
-#   force(code)
-# }
-#
-# # Add test for add_template ----
-# test_that("add_template adds templates correctly", {
-#   with_project({
-#     # Test for adding dev_history template
-#     add_template(pkg = dummypackage, template = "dev_history.Rmd", save_as = "dev_history.Rmd")
-#     expect_true(file.exists(file.path(dummypackage, "dev", "dev_history.Rmd")))
-
-#   # Test for adding load_data template
-#   add_template(template = "fct_load_data.Rmd", save_as = "fct_load_data.Rmd")
-#   expect_true(file.exists(file.path(dummypackage, "dev", "fct_load_data.Rmd")))
-#
-#   # Test for adding clean_data template
-#   add_template(template = "fct_clean_data.Rmd", save_as = "fct_clean_data.Rmd")
-#   expect_true(file.exists(file.path(dummypackage, "dev", "fct_clean_data.Rmd")))
-#
-#   # Test for existing file scenario
-#   expect_error(
-#     add_template(template = "dev_history.Rmd", save_as = "dev_history.Rmd"),
-#     "The file dev/dev_history.Rmd already exists. Please choose a different name or delete the existing file."
-#   )
-#   })
-# })
-#
-# unlink(dummypackage, recursive = TRUE)
 ```
 
 ```{r development-inflate, eval=FALSE}

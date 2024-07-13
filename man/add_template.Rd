@@ -46,10 +46,4 @@ Choose \code{template} among the different templates available:
 # add only the dev_history file in an existing package
 add_template()
 }
-
-# For classical use in your package
-\dontrun{
-# add only the dev_history file in an existing package
-add_template()
-}
 }

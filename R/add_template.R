@@ -28,12 +28,6 @@
 #' # add only the dev_history file in an existing package
 #' add_template()
 #' }
-#'
-#' # For classical use in your package
-#' \dontrun{
-#' # add only the dev_history file in an existing package
-#' add_template()
-#' }
 add_template <- function(
     template = c(
       "dev_history.Rmd", "fct_load_data.Rmd", "fct_clean_data.Rmd",
@@ -77,16 +71,4 @@ add_template <- function(
       )
     }
   )
-}
-
-#' Retrieve name of the package if there is a DESCRIPTION
-#' @noRd
-get_pkg_name <- function(pkg) {
-  desc <- file.path(pkg, "DESCRIPTION")
-  if (file.exists(desc)) {
-    pkgname <- read.dcf(desc)[colnames(read.dcf(desc)) == "Package"]
-  } else {
-    pkgname <- basename(normalizePath(pkg, mustWork = FALSE))
-  }
-  pkgname
 }
