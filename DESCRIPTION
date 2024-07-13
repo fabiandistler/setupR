@@ -9,11 +9,10 @@ License: MIT + file LICENSE
 URL: https://github.com/fabiandistler/setupR
 BugReports: https://github.com/fabiandistler/setupR/issues
 Imports: 
-    here,
+    cli,
     lifecycle,
     usethis
 Suggests: 
-    fusen,
     testthat (>= 3.0.0)
 Config/fusen/version: 0.6.0
 Config/testthat/edition: 3
