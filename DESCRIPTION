@@ -13,6 +13,10 @@ Imports:
     lifecycle,
     usethis
 Suggests: 
+    devtools,
+    fusen,
+    pkgdown,
+    renv,
     testthat (>= 3.0.0)
 Config/fusen/version: 0.6.0
 Config/testthat/edition: 3

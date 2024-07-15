@@ -96,7 +96,11 @@ usethis::use_lifecycle_badge("experimental")
 usethis::use_tidy_description()
 
 # Generate documentation and deal with dependencies
-attachment::att_amend_desc()
+attachment::att_amend_desc(
+  # pkg_ignore = c(), # Add packages to ignore.
+  extra.suggests = c("devtools", "renv", "lifecycle", "pkgdown", "fusen"),
+  update.config = TRUE
+)
 
 # Add a new flat template
 fusen::add_flat_template("add")
