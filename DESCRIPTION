@@ -1,8 +1,8 @@
 Package: setupR
 Title: Templates and Workflows for Data Science Projects
-Version: 0.0.0.9002
+Version: 0.0.0.900
 Authors@R: 
-    person("Fabian", "Distler", , "fabian.distler@gmx.net", role = c("aut", "cre"),
+    person("Fabian", "Distler", , "fabian.distler@gmx.net", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-1438-0724"))
 Description: Use templates to make common data science workflows easier.
 License: MIT + file LICENSE
