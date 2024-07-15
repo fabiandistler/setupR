@@ -64,6 +64,12 @@ usethis::git_default_branch_rename()
 If you have packaged your data preparation code, you might want to create
 a separate branch/repo for you pipeline and load you package in it.
 
+# Create branch set up for analsis package and targets.
+```{r, eval=FALSE}
+ger::
+```
+
+# Targets
 ```{r, eval=FALSE}
 targets::use_targets() # Can use targets::use_targets_rmd() instead.
 # Interactive app to set up pipeline.
