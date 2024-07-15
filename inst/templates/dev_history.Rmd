@@ -119,6 +119,7 @@ attachment::att_amend_desc(
 )
 
 # Renv
+renv::init()
 attachment::create_renv_for_dev()
 attachment::create_renv_for_prod()
 
