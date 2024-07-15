@@ -17,7 +17,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Fabian Distler \email{fabian.distler@gmx.net} (\href{https://orcid.org/0000-0002-1438-0724}{ORCID})
+\strong{Maintainer}: Fabian Distler \email{fabian.distler@gmx.net} (\href{https://orcid.org/0000-0002-1438-0724}{ORCID}) [copyright holder]
 
 }
 \keyword{internal}

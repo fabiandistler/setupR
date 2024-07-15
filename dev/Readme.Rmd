@@ -1,7 +1,0 @@
-# Package dev overview for `{fusen}`
-
-Run this in console for package overview:
-```{r, eval=FALSE}
-pkg_structure <- fusen::get_package_structure()
-fusen::draw_package_structure()
-```

@@ -1,0 +1,24 @@
+---
+output: github_document
+---
+
+<!-- Generated from 1-dev-readme.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "dev/figures/dev-readme-",
+  out.width = "100%"
+)
+```
+
+# Package overview for `{fusen}` dev workflow.
+
+## Package structure.
+```{r}
+withr::with_dir(
+  here::here(),
+  fusen::draw_package_structure()
+)
+```
