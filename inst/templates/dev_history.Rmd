@@ -60,10 +60,24 @@ usethis::git_vaccinate()
 usethis::git_default_branch_rename()
 ```
 
-# Set up `{targets}` pipeline for analysis
+# Set up `{targets}` pipeline for analysis.
+If you have packaged your data preparation code, you might want to create
+a separate branch/repo for you pipeline and load you package in it.
 
 ```{r, eval=FALSE}
-
+targets::use_targets() # Can use targets::use_targets_rmd() instead.
+# Interactive app to set up pipeline.
+targetsketch::targetsketch()
+targets::tar_visnetwork()
+targets::tar_manifest()
+targets::tar_sitrep()
+# Can use different data store e.g. for sensitive data.
+# targets::tar_config_set(store = "path/to/store")
+targets::tar_make()
+# Get pipeline deps for renv.
+targets::tar_renv()
+# Run pipeline on github.
+targets::tar_github_actions()
 ```
 
 
