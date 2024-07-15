@@ -60,6 +60,13 @@ usethis::git_vaccinate()
 usethis::git_default_branch_rename()
 ```
 
+# Set up `{targets}` pipeline for analysis
+
+```{r, eval=FALSE}
+
+```
+
+
 # Set extra sources of documentation
 
 ```{r, eval=FALSE}
@@ -67,9 +74,7 @@ usethis::git_default_branch_rename()
 remotes::install_local()
 # README
 usethis::use_readme_rmd()
-# Code of Conduct
-usethis::use_code_of_conduct("contact@fake.com")
-# NEWS
+# NEWS can be used as changelog.
 usethis::use_news_md()
 ```
 
