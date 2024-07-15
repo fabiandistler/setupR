@@ -4,9 +4,7 @@
 #'
 #' Choose from various templates to be added to your project.
 #'
-#' @param template Default: c("dev_history.Rmd", "fct_load_data.Rmd",
-#' "fct_clean_data.Rmd", "exploratory_data_analysis.qmd",
-#' "model_workflow_for_inference.qmd").
+#' @param template Various templates to choose from.
 #' @param save_as Name of output file.
 #' @param overwrite Logical. Whether to overwrite existing template file.
 #' @param open Logical. Whether to open file after creation.
@@ -25,28 +23,35 @@ add_template <- function(
     template = c(
       "dev_history.Rmd", "fct_load_data.Rmd", "fct_clean_data.Rmd",
       "exploratory_data_analysis.qmd",
-      "model_workflow_for_inference.qmd"
+      "model_workflow_for_inference.qmd", "_targets.R"
     ),
     save_as = template,
     overwrite = FALSE,
     open = FALSE) {
-  # Check if the file already exists
-  pkg <- normalizePath(".")
-  full_dev_dir <- file.path(pkg, "dev")
+  if (template != "_targets.R") {
+    # Check if the file already exists
+    pkg <- normalizePath(".")
 
-  file_path <- file.path(full_dev_dir, save_as[1])
-  if (file.exists(file_path) && overwrite) {
-    cli::cli_abort(c("{.var file_path} already exists. Please choose a
+    full_dev_dir <- file.path(pkg, "dev")
+
+    file_path <- file.path(full_dev_dir, save_as[1])
+    if (file.exists(file_path) && !overwrite) {
+      cli::cli_abort(c("{.var file_path} already exists. Please choose a
                      different name or delete the existing file."))
-  }
+    }
 
-  if (!dir.exists(full_dev_dir)) {
-    dir.create(full_dev_dir)
+    if (!dir.exists(full_dev_dir)) {
+      dir.create(full_dev_dir)
+    }
+
+    save_as <- paste0("dev/", save_as)
+  } else if (template == "_targets.R") {
+    save_as <- paste0("./", save_as)
   }
 
   usethis::use_template(
     template = template[1],
-    save_as = paste0("dev/", save_as),
+    save_as = save_as,
     data = list(), # Use to autofill fields?
     open = open,
     package = "setupR"

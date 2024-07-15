@@ -40,4 +40,12 @@ test_that("add_template saves templates with custom file names", {
   })
 })
 
+test_that("add_template _targets.R works", {
+  with_project_helper({
+    # Add template with custom save_as name
+    add_template(template = "_targets.R", save_as = "bla.R")
+    expect_true(file.exists(file.path(dummypackage, "bla.R")))
+  })
+})
+
 unlink(dummypackage, recursive = TRUE)
