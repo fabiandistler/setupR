@@ -17,5 +17,8 @@ knitr::opts_chunk$set(
 
 ## Package structure.
 ```{r}
-fusen::draw_package_structure()
+withr::with_dir(
+  here::here(),
+  fusen::draw_package_structure()
+)
 ```

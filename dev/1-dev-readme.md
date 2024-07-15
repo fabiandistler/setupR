@@ -6,7 +6,10 @@
 ## Package structure.
 
 ``` r
-fusen::draw_package_structure()
+withr::with_dir(
+  here::here(),
+  fusen::draw_package_structure()
+)
 #> ── Reading NAMESPACE file ──────────────────────────────────────────────────────
 #> ── flat_add_template.Rmd ───────────────────────────────────────────────────────
 #> ── keep ────────────────────────────────────────────────────────────────────────
