@@ -6,16 +6,14 @@
 \usage{
 add_template(
   template = c("dev_history.Rmd", "fct_load_data.Rmd", "fct_clean_data.Rmd",
-    "exploratory_data_analysis.qmd", "model_workflow_for_inference.qmd"),
+    "exploratory_data_analysis.qmd", "model_workflow_for_inference.qmd", "_targets.R"),
   save_as = template,
   overwrite = FALSE,
   open = FALSE
 )
 }
 \arguments{
-\item{template}{Default: c("dev_history.Rmd", "fct_load_data.Rmd",
-"fct_clean_data.Rmd", "exploratory_data_analysis.qmd",
-"model_workflow_for_inference.qmd").}
+\item{template}{Various templates to choose from.}
 
 \item{save_as}{Name of output file.}
 
