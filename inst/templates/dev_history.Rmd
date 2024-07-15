@@ -112,7 +112,15 @@ gitlabr::use_gitlab_ci(type = "check-coverage-pkgdown")
 pkgload::load_all()
 
 # Generate documentation and deal with dependencies
-attachment::att_amend_desc()
+attachment::att_amend_desc(
+  # pkg_ignore = c(), # Add packages to ignore.
+  extra.suggests = c("devtools", "renv", "pkgdown", "fusen"), # Possible defaults.
+  update.config = TRUE
+)
+
+# Renv
+attachment::create_renv_for_dev()
+attachment::create_renv_for_prod()
 
 # Check the package
 devtools::check()
