@@ -21,13 +21,15 @@
 #' }
 add_template <- function(
     template = c(
-      "dev_history.Rmd", "fct_load_data.Rmd", "fct_clean_data.Rmd",
+      "dev_history.Rmd", "flat_fct_load_data.Rmd", "flat_fct_clean_data.Rmd",
       "exploratory_data_analysis.qmd",
       "model_workflow_for_inference.qmd", "_targets.R"
     ),
     save_as = template,
     overwrite = FALSE,
     open = FALSE) {
+  template <- template[1]
+
   if (template != "_targets.R") {
     # Check if the file already exists
     pkg <- normalizePath(".")

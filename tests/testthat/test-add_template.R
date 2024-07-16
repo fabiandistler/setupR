@@ -11,10 +11,10 @@ with_project_helper <- function(code) {
 }
 
 # Test for add_template ----
-test_that("add_template adds templates correctly", {
+test_that("add_template empty call works", {
   with_project_helper({
     # Test for adding dev_history template
-    add_template(template = "dev_history.Rmd", save_as = "dev_history.Rmd")
+    add_template()
     expect_true(file.exists(file.path(dummypackage, "dev", "dev_history.Rmd")))
   })
 })
@@ -26,7 +26,7 @@ test_that("add_template adds multiple templates sequentially", {
     add_template(template = "dev_history.Rmd", save_as = "dev_history2.Rmd")
     expect_true(file.exists(file.path(dummypackage, "dev", "dev_history.Rmd")))
 
-    add_template(template = "fct_load_data.Rmd", save_as = "fct_load_data.Rmd")
+    add_template(template = "flat_fct_load_data.Rmd", save_as = "fct_load_data.Rmd")
     expect_true(file.exists(file.path(dummypackage, "dev", "fct_load_data.Rmd")))
   })
 })
