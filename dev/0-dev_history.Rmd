@@ -53,6 +53,8 @@ usethis::use_code_of_conduct("fabian.distler@gmx.net")
 usethis::use_news_md()
 # Package structure (add this in a dev/Readme.md file)
 fusen::draw_package_structure()
+
+usethis::use_spell_check()
 ```
 
 **From now, you will need to "inflate" your package at least once to be able to use the following commands. Let's go to your flat template, and come back here later if/when needed.**
