@@ -68,6 +68,16 @@ GGally::ggduo(
   # ylab = NULL,
   # legend = NULL
 )
+
+# Plot outcome with potential explanatory variables.
+GGally::ggbivariate(
+  data = df,
+  outcome,
+  explanatory = NULL,
+  mapping = NULL, # Same as for ggduo().
+  types = NULL,
+  ...
+)
 ```
 
 # Look at the data.
