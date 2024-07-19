@@ -49,7 +49,25 @@ ggquickeda::run_ggquickeda(df)
 
 esquisse::esquisser(df)
 
-GGally::ggduo(df)
+GGally::ggduo(
+  data = df,
+  # mapping = aes(color = cyl), # Subset data by aes() variable.
+  # columnsX = 1:ncol(data), # Columns to choose.
+  # columnsY = 1:ncol(data),
+  # title = NULL,
+  # types = list(
+  #   continuous = "smooth_loess", comboVertical = "box_no_facet",
+  #   comboHorizontal = "facethist", discrete = "count"
+  # ),
+  # axisLabels = c("show", "none"),
+  # columnLabelsX = colnames(data[columnsX]),
+  # columnLabelsY = colnames(data[columnsY]),
+  # labeller = "label_value", # Labels for facetting.
+  # switch = NULL, # Control position of labels.
+  # xlab = NULL,
+  # ylab = NULL,
+  # legend = NULL
+)
 ```
 
 # Look at the data.
