@@ -78,6 +78,16 @@ GGally::ggbivariate(
   types = NULL,
   ...
 )
+
+# Cross tables.
+GGally::ggtable(
+  df,
+  columnsX = 1:ncol(data),
+  columnsY = 1:ncol(data),
+  cells = c("observed", "prop", "row.prop", "col.prop", "expected", "resid", "std.resid"),
+  fill = c("none", "std.resid", "resid"),
+  mapping = NULL
+)
 ```
 
 # Look at the data.
