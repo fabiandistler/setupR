@@ -17,8 +17,13 @@ pkgload::load_all(export_all = FALSE)
 # fct_add_rprofile_template
 
 ```{r function-fct_add_rprofile_template}
-# add entire roxygen documentation
-
+#' @title Add Rprofile template
+#'
+#' @param scope Scope of the .Rprofile file to edit.
+#' @return .rprofile template content copied to clipboard.
+#' @seealso
+#'  \code{\link[usethis]{edit}}
+#' @export
 fct_add_rprofile_template <- function(scope = c("user", "project")) {
   template <- system.file("templates", "rprofile_template.R", package = "setupR")
 
@@ -29,7 +34,7 @@ fct_add_rprofile_template <- function(scope = c("user", "project")) {
   open_rprofile <- readline(prompt = "Do you want to open the .Rprofile file? (yes/no) ")
 
   if (open_rprofile == "yes") {
-    usethis::edit_r_profile()
+    usethis::edit_r_profile(scope)
   } else {
     cat("Aborted.\n")
   }
@@ -38,12 +43,11 @@ fct_add_rprofile_template <- function(scope = c("user", "project")) {
 #' @noRd
 copy_to_clipboard <- function(template) {
   content <- readLines(template)
-
-  writeClipboard(content)
+  utils::writeClipboard(content)
 }
 ```
 
-```{r examples-fct_add_rprofile_template, eval=FALSE}}
+```{r examples-fct_add_rprofile_template, eval=FALSE}
 if (FALSE) {
   fct_add_rprofile_template()
 }
@@ -51,7 +55,7 @@ if (FALSE) {
 
 ```{r tests-fct_add_rprofile_template}
 test_that("fct_add_rprofile_template works", {
-  expect_true(inherits(fct_add_rprofile_template, "function"))
+  expect_output(fct_add_rprofile_template(), "The content has been copied to the clipboard. Please paste it into your .Rprofile file.")
 })
 ```
 
@@ -59,5 +63,5 @@ test_that("fct_add_rprofile_template works", {
 ```{r development-inflate, eval=FALSE}
 # Run but keep eval=FALSE to avoid infinite loop
 # Execute in the console directly
-fusen::inflate(flat_file = "dev/flat_fct_add_rprofile_template.Rmd", vignette_name = "Go further")
+fusen::inflate(flat_file = "dev/flat_fct_add_rprofile_template.Rmd", vignette_name = NA)
 ```

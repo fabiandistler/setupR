@@ -11,7 +11,8 @@ BugReports: https://github.com/fabiandistler/setupR/issues
 Imports: 
     cli,
     lifecycle,
-    usethis
+    usethis,
+    utils
 Suggests: 
     devtools,
     fusen,

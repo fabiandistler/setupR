@@ -12,6 +12,20 @@ flat_add_template.Rmd:
     document: true
     overwrite: ask
     clean: ask
+flat_fct_add_rprofile_template.Rmd:
+  path: dev/flat_fct_add_rprofile_template.Rmd
+  state: active
+  R: R/fct_add_rprofile_template.R
+  tests: tests/testthat/test-fct_add_rprofile_template.R
+  vignettes: []
+  inflate:
+    flat_file: dev/flat_fct_add_rprofile_template.Rmd
+    vignette_name: .na
+    open_vignette: true
+    check: true
+    document: true
+    overwrite: ask
+    clean: ask
 keep:
   path: keep
   state: active
