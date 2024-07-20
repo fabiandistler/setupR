@@ -59,6 +59,36 @@ skimr::skim(df)
 Hmisc::describe(df)
 ```
 
+# Summary table and multiple comparisons.
+```{r}
+# Set theme.
+gtsummary::theme_gtsummary_compact()
+gtsummary::theme_gtsummary_eda()
+gtsummary::theme_journal()
+
+# Create table.
+gtsummary::tbl_summary(
+  data,
+  by = NULL,
+  label = NULL,
+  statistic = NULL,
+  digits = NULL,
+  type = NULL,
+  value = NULL,
+  missing_text = "Missing",
+  sort = NULL,
+  percent = NULL
+) %>%
+  gtsummary::bold_labels() %>%
+  gtsummary::add_p(pvalue_fun = ~ gtsummary::style_pvalue(.x, digits = 3)) %>%
+  gtsummary::bold_p() %>%
+  gtsummary::modify_spanning_header(c("stat_1", "stat_2") ~ "**XX used**") %>%
+  gtsummary::separate_p_footnotes() %>%
+  gtsummary::as_gt() %>%
+  # gt::gtsave("XX_data_overview.png") # Other formats available.
+```
+
+
 # Plotters.
 ```{r}
 esquisse::esquisser(df)
