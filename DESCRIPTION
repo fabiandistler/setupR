@@ -11,12 +11,14 @@ BugReports: https://github.com/fabiandistler/setupR/issues
 Imports: 
     cli,
     lifecycle,
-    usethis
+    usethis,
+    utils
 Suggests: 
     devtools,
     fusen,
     pkgdown,
     renv,
+    sinew,
     spelling,
     testthat (>= 3.0.0)
 Config/fusen/version: 0.6.0

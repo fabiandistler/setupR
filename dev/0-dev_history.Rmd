@@ -100,7 +100,10 @@ usethis::use_tidy_description()
 # Generate documentation and deal with dependencies
 attachment::att_amend_desc(
   # pkg_ignore = c(), # Add packages to ignore.
-  extra.suggests = c("devtools", "renv", "lifecycle", "pkgdown", "fusen"),
+  extra.suggests = c(
+    "devtools", "renv", "lifecycle",
+    "pkgdown", "fusen", "sinew"
+  ),
   update.config = TRUE
 )
 
