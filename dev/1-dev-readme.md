@@ -12,6 +12,7 @@ withr::with_dir(
 )
 #> ── Reading NAMESPACE file ──────────────────────────────────────────────────────
 #> ── flat_add_template.Rmd ───────────────────────────────────────────────────────
+#> ── flat_fct_add_rprofile_template.Rmd ──────────────────────────────────────────
 #> ── keep ────────────────────────────────────────────────────────────────────────
 #> 
 #> - flat_add_template.Rmd
@@ -26,6 +27,20 @@ withr::with_dir(
 #>       + 👀 add_template
 #>   - tests
 #>       + tests/testthat/test-add_template.R
+#>   - vignettes
+#> - flat_fct_add_rprofile_template.Rmd
+#>   - flat_title
+#>       + flat_fct_add_rprofile_template.Rmd empty
+#>   - path
+#>       + dev/flat_fct_add_rprofile_template.Rmd
+#>   - state
+#>       + 🍏 active
+#>   - R
+#>     - R/fct_add_rprofile_template.R
+#>       + 👀 fct_add_rprofile_template
+#>       + 🙈 copy_to_clipboard
+#>   - tests
+#>       + tests/testthat/test-fct_add_rprofile_template.R
 #>   - vignettes
 #> - keep
 #>   - path

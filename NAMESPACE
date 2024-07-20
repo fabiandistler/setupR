@@ -3,4 +3,6 @@
 export(add_template)
 export(fct_add_rprofile_template)
 importFrom(lifecycle,deprecated)
+importFrom(usethis,edit_r_profile)
+importFrom(usethis,use_template)
 importFrom(utils,writeClipboard)
