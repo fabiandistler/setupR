@@ -1,0 +1,63 @@
+---
+title: "flat_fct_add_rprofile_template.Rmd empty"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r development, include=FALSE}
+library(testthat)
+```
+
+```{r development-load}
+# Load already included functions if relevant
+pkgload::load_all(export_all = FALSE)
+```
+
+# fct_add_rprofile_template
+
+```{r function-fct_add_rprofile_template}
+# add entire roxygen documentation
+
+fct_add_rprofile_template <- function(scope = c("user", "project")) {
+  template <- system.file("templates", "rprofile_template.R", package = "setupR")
+
+  copy_to_clipboard(template)
+
+  cat("The content has been copied to the clipboard. Please paste it into your .Rprofile file.\n")
+
+  open_rprofile <- readline(prompt = "Do you want to open the .Rprofile file? (yes/no) ")
+
+  if (open_rprofile == "yes") {
+    usethis::edit_r_profile()
+  } else {
+    cat("Aborted.\n")
+  }
+}
+
+#' @noRd
+copy_to_clipboard <- function(template) {
+  content <- readLines(template)
+
+  writeClipboard(content)
+}
+```
+
+```{r examples-fct_add_rprofile_template, eval=FALSE}}
+if (FALSE) {
+  fct_add_rprofile_template()
+}
+```
+
+```{r tests-fct_add_rprofile_template}
+test_that("fct_add_rprofile_template works", {
+  expect_true(inherits(fct_add_rprofile_template, "function"))
+})
+```
+
+
+```{r development-inflate, eval=FALSE}
+# Run but keep eval=FALSE to avoid infinite loop
+# Execute in the console directly
+fusen::inflate(flat_file = "dev/flat_fct_add_rprofile_template.Rmd", vignette_name = "Go further")
+```

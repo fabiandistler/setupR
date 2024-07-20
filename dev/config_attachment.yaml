@@ -9,6 +9,7 @@ extra.suggests:
   - lifecycle
   - pkgdown
   - fusen
+  - sinew
 pkg_ignore: ~
 document: yes
 normalize: yes

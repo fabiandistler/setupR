@@ -17,6 +17,7 @@ Suggests:
     fusen,
     pkgdown,
     renv,
+    sinew,
     spelling,
     testthat (>= 3.0.0)
 Config/fusen/version: 0.6.0
