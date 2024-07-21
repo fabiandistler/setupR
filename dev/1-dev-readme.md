@@ -40,7 +40,6 @@ withr::with_dir(
 #>       + 👀 fct_add_rprofile_template
 #>       + 🙈 copy_to_clipboard
 #>   - tests
-#>       + tests/testthat/test-fct_add_rprofile_template.R
 #>   - vignettes
 #> - keep
 #>   - path
