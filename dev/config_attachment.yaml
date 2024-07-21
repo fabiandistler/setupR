@@ -5,7 +5,6 @@ dir.v: vignettes
 dir.t: tests
 extra.suggests:
   - devtools
-  - renv
   - lifecycle
   - pkgdown
   - fusen

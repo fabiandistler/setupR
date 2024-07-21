@@ -16,19 +16,18 @@ fct_add_rprofile_template <- function(scope = c("user", "project")) {
 
   copy_to_clipboard(template)
 
-  cat("The content has been copied to the clipboard. Please paste it into your .Rprofile file.\n")
+  cli::cli_alert_info("The content has been copied to the clipboard. Please paste it into your .Rprofile file.\n")
 
-  open_rprofile <- readline(prompt = "Do you want to open the .Rprofile file? (yes/no) ")
-
-  if (open_rprofile == "yes") {
-    usethis::edit_r_profile(scope)
-  } else {
-    cat("Aborted.\n")
-  }
+  usethis::edit_r_profile(scope)
 }
 
 #' @noRd
 copy_to_clipboard <- function(template) {
   content <- readLines(template)
-  utils::writeClipboard(content)
+
+  if (clipr::clipr_available()) {
+    x <- crayon::strip_style(content)
+    clipr::write_clip(x)
+    cli::cli_alert_success("  [Copied to clipboard]")
+  }
 }
