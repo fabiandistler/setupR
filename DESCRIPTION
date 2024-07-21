@@ -12,14 +12,12 @@ Imports:
     cli,
     clipr,
     crayon,
-    lifecycle,
-    usethis,
-    utils
+    usethis
 Suggests: 
     devtools,
     fusen,
+    lifecycle,
     pkgdown,
-    renv,
     sinew,
     spelling,
     testthat (>= 3.0.0)
