@@ -48,4 +48,11 @@ test_that("add_template _targets.R works", {
   })
 })
 
+test_that("add_template argument matching works", {
+  with_project_helper({
+    add_template(template = "_tar", save_as = "1.R")
+    expect_true(file.exists(file.path(dummypackage, "1.R")))
+  })
+})
+
 unlink(dummypackage, recursive = TRUE)
