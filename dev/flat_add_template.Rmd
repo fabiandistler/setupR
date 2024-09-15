@@ -26,15 +26,19 @@ library(testthat)
 #' @export
 #'
 add_template <- function(
-    template = c(
-      "dev_history.Rmd", "flat_fct_load_data.Rmd", "flat_fct_clean_data.Rmd",
-      "exploratory_data_analysis.qmd",
-      "model_workflow_for_inference.qmd", "_targets.R"
-    ),
+    template = NULL,
     save_as = template,
     overwrite = FALSE,
     open = FALSE) {
-  template <- template[1]
+  # Template choices
+  choices <- c(
+    "dev_history.Rmd", "flat_fct_load_data.Rmd", "flat_fct_clean_data.Rmd",
+    "exploratory_data_analysis.qmd",
+    "model_workflow_for_inference.qmd", "_targets.R"
+  )
+
+  template <- match.arg(template, choices)
+
 
   if (template != "_targets.R") {
     # Check if the file already exists
@@ -122,6 +126,13 @@ test_that("add_template _targets.R works", {
     # Add template with custom save_as name
     add_template(template = "_targets.R", save_as = "bla.R")
     expect_true(file.exists(file.path(dummypackage, "bla.R")))
+  })
+})
+
+test_that("add_template argument matching works", {
+  with_project_helper({
+    add_template(template = "_tar", save_as = "1.R")
+    expect_true(file.exists(file.path(dummypackage, "1.R")))
   })
 })
 

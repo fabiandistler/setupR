@@ -20,15 +20,19 @@
 #' add_template()
 #' }
 add_template <- function(
-    template = c(
-      "dev_history.Rmd", "flat_fct_load_data.Rmd", "flat_fct_clean_data.Rmd",
-      "exploratory_data_analysis.qmd",
-      "model_workflow_for_inference.qmd", "_targets.R"
-    ),
+    template = NULL,
     save_as = template,
     overwrite = FALSE,
     open = FALSE) {
-  template <- template[1]
+  # Template choices
+  choices <- c(
+    "dev_history.Rmd", "flat_fct_load_data.Rmd", "flat_fct_clean_data.Rmd",
+    "exploratory_data_analysis.qmd",
+    "model_workflow_for_inference.qmd", "_targets.R"
+  )
+
+  template <- match.arg(template, choices)
+
 
   if (template != "_targets.R") {
     # Check if the file already exists

@@ -5,8 +5,7 @@
 \title{Add Rmd template}
 \usage{
 add_template(
-  template = c("dev_history.Rmd", "flat_fct_load_data.Rmd", "flat_fct_clean_data.Rmd",
-    "exploratory_data_analysis.qmd", "model_workflow_for_inference.qmd", "_targets.R"),
+  template = NULL,
   save_as = template,
   overwrite = FALSE,
   open = FALSE
