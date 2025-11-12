@@ -5,6 +5,9 @@ dummypackage <- tempfile(pattern = "add_template")
 dir.create(dummypackage)
 pkg_name <- basename(dummypackage)
 
+# Ensure cleanup happens even if tests fail
+withr::defer(unlink(dummypackage, recursive = TRUE), envir = parent.frame())
+
 # Helper function to set the working directory using usethis::with_project
 with_project_helper <- function(code) {
   usethis::with_project(dummypackage, code, quiet = TRUE, force = TRUE, setwd = TRUE)
@@ -86,6 +89,20 @@ test_that("add_template rejects empty filenames", {
   })
 })
 
+test_that("add_template rejects special directory names", {
+  with_project_helper({
+    # Should reject . and ..
+    expect_error(
+      add_template(template = "dev_history.Rmd", save_as = "."),
+      "cannot be"
+    )
+    expect_error(
+      add_template(template = "dev_history.Rmd", save_as = ".."),
+      "cannot be"
+    )
+  })
+})
+
 test_that("add_template respects overwrite parameter", {
   with_project_helper({
     # Create a file
@@ -104,4 +121,4 @@ test_that("add_template respects overwrite parameter", {
   })
 })
 
-unlink(dummypackage, recursive = TRUE)
+# Note: Cleanup is handled by withr::defer() at the top of the test file

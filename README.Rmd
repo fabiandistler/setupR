@@ -56,8 +56,8 @@ add_template("_targets.R")
 add_template("flat_fct_load_data.Rmd")
 add_template("flat_fct_clean_data.Rmd")
 
-# Add exploratory data analysis template
-add_template("exploratory_data_analysis.qmd", save_as = "my_eda.qmd")
+# Add exploratory data analysis template (use partial matching)
+add_template("exp", save_as = "my_eda.qmd")
 
 # Add statistical modeling workflow template
 add_template("model_workflow_for_inference.qmd")

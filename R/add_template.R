@@ -28,9 +28,10 @@
 #' add_template("flat_fct_load_data.Rmd")
 #' add_template("_targets.R")
 #'
-#' # Use partial matching
-#' add_template("_tar")
-#' add_template("eda", save_as = "my_eda.qmd")
+#' # Use partial matching (needs unique prefix)
+#' add_template("_tar")                    # matches "_targets.R"
+#' add_template("exp")                     # matches "exploratory_data_analysis.qmd"
+#' add_template("model", save_as = "my_model.qmd")  # matches "model_workflow_for_inference.qmd"
 #' }
 #'
 add_template <- function(
@@ -49,8 +50,10 @@ add_template <- function(
   # Match template argument
   template <- match.arg(template, choices)
 
-  # Validate save_as to prevent path traversal
+  # Validate save_as to prevent path traversal and invalid filenames
   save_as_base <- basename(save_as[1])
+
+  # Check for directory separators
   if (save_as_base != save_as[1]) {
     cli::cli_abort(c(
       "x" = "{.var save_as} contains directory separators.",
@@ -59,11 +62,19 @@ add_template <- function(
     ))
   }
 
-  # Validate save_as is not empty or just whitespace
+  # Check for empty or whitespace-only names
   if (is.null(save_as_base) || trimws(save_as_base) == "") {
     cli::cli_abort(c(
       "x" = "{.var save_as} must be a valid file name.",
       "i" = "You provided: {.val {save_as[1]}}"
+    ))
+  }
+
+  # Check for special directory names
+  if (save_as_base %in% c(".", "..")) {
+    cli::cli_abort(c(
+      "x" = "{.var save_as} cannot be {.val {save_as_base}}.",
+      "i" = "Please provide a valid file name."
     ))
   }
 

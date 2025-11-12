@@ -1,4 +1,4 @@
-# setupR (development version)
+# setupR 0.0.0.9000
 
 ## Major Improvements
 
@@ -11,12 +11,14 @@
 * Fixed bug where `add_template()` with default `template = NULL` would error instead of using the default template. Now defaults to `"dev_history.Rmd"`.
 * Fixed issue where `template` parameter would accept `NULL` causing unclear error messages from `match.arg()`.
 * Improved error message formatting in `add_template()` (removed awkward multi-line string concatenation).
+* **Fixed incorrect partial matching example** in documentation - replaced non-working `"eda"` example with correct `"exp"` prefix.
 
 ### Error Handling & Validation
 
 * Added comprehensive input validation to `add_template()`:
   * Validates `save_as` doesn't contain directory separators
   * Validates `save_as` is not empty or whitespace-only
+  * **Rejects special directory names** (`.`, `..`) to prevent edge case issues
   * Uses `normalizePath(".", mustWork = TRUE)` to ensure working in valid directory
 * Improved error handling in `fct_add_rprofile_template()`:
   * Now validates template file exists before attempting to read
@@ -58,12 +60,16 @@
 
 * Added comprehensive test coverage:
   * Security: Tests for path traversal rejection
-  * Validation: Tests for empty filename rejection
+  * Validation: Tests for empty filename rejection and special directory names (`.`, `..`)
   * Functionality: Tests for overwrite parameter behavior
-  * Error handling: Tests for file reading errors
+  * Error handling: Tests for file reading errors and scope validation
   * Edge cases: Tests for argument matching
 * Added tests for `fct_add_rprofile_template()` (previously untested)
-* Added `mockery` to suggested packages for testing
+* Improved test infrastructure:
+  * Added `skip_if_not_installed()` guards for optional dependencies
+  * Implemented safe cleanup with `withr::defer()` to prevent tmp file leaks
+  * Removed tests for internal non-exported functions
+* Added `mockery` and `withr` to suggested packages for testing
 
 ### Code Quality
 
@@ -76,6 +82,7 @@
 ## Dependencies
 
 * Added `mockery` to Suggests for improved testing capabilities
+* Added `withr` to Suggests for safe test cleanup
 
 ---
 
