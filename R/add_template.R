@@ -34,10 +34,11 @@
 #' }
 #'
 add_template <- function(
-    template = "dev_history.Rmd",
-    save_as = template,
-    overwrite = FALSE,
-    open = FALSE) {
+  template = "dev_history.Rmd",
+  save_as = template,
+  overwrite = FALSE,
+  open = FALSE
+) {
   # Template choices
   choices <- c(
     "dev_history.Rmd", "flat_fct_load_data.Rmd", "flat_fct_clean_data.Rmd",
