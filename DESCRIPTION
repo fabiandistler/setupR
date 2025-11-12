@@ -13,10 +13,11 @@ Imports:
     clipr,
     crayon,
     usethis
-Suggests: 
+Suggests:
     devtools,
     fusen,
     lifecycle,
+    mockery,
     pkgdown,
     sinew,
     spelling,

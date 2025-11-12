@@ -55,4 +55,53 @@ test_that("add_template argument matching works", {
   })
 })
 
+test_that("add_template rejects path traversal attempts", {
+  with_project_helper({
+    # Should reject paths with directory separators
+    expect_error(
+      add_template(template = "dev_history.Rmd", save_as = "../etc/passwd"),
+      "contains directory separators"
+    )
+    expect_error(
+      add_template(template = "dev_history.Rmd", save_as = "../../bad.Rmd"),
+      "contains directory separators"
+    )
+    expect_error(
+      add_template(template = "dev_history.Rmd", save_as = "subdir/file.Rmd"),
+      "contains directory separators"
+    )
+  })
+})
+
+test_that("add_template rejects empty filenames", {
+  with_project_helper({
+    expect_error(
+      add_template(template = "dev_history.Rmd", save_as = ""),
+      "must be a valid file name"
+    )
+    expect_error(
+      add_template(template = "dev_history.Rmd", save_as = "   "),
+      "must be a valid file name"
+    )
+  })
+})
+
+test_that("add_template respects overwrite parameter", {
+  with_project_helper({
+    # Create a file
+    add_template(template = "dev_history.Rmd")
+
+    # Should fail without overwrite
+    expect_error(
+      add_template(template = "dev_history.Rmd"),
+      "already exists"
+    )
+
+    # Should succeed with overwrite
+    expect_no_error(
+      add_template(template = "dev_history.Rmd", overwrite = TRUE)
+    )
+  })
+})
+
 unlink(dummypackage, recursive = TRUE)
