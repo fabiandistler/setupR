@@ -29,9 +29,9 @@
 #' add_template("_targets.R")
 #'
 #' # Use partial matching (needs unique prefix)
-#' add_template("_tar")                    # matches "_targets.R"
-#' add_template("exp")                     # matches "exploratory_data_analysis.qmd"
-#' add_template("model", save_as = "my_model.qmd")  # matches "model_workflow_for_inference.qmd"
+#' add_template("_tar") # matches "_targets.R"
+#' add_template("exp") # matches "exploratory_data_analysis.qmd"
+#' add_template("model", save_as = "my_model.qmd") # matches "model_workflow_for_inference.qmd"
 #' }
 #'
 add_template <- function(
