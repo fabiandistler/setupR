@@ -13,14 +13,16 @@ Imports:
     clipr,
     crayon,
     usethis
-Suggests: 
+Suggests:
     devtools,
     fusen,
     lifecycle,
+    mockery,
     pkgdown,
     sinew,
     spelling,
-    testthat (>= 3.0.0)
+    testthat (>= 3.0.0),
+    withr
 Config/fusen/version: 0.6.0
 Config/testthat/edition: 3
 Encoding: UTF-8

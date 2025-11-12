@@ -23,21 +23,49 @@ You can install the development version of setupR like so:
 
 ``` r
 # install.packages("pak")
-pak::pak("fabiandistler/setupR")   
+pak::pak("fabiandistler/setupR")
 ```
 
 ## Documentation
 
 Full documentation website on: <https://fabiandistler.github.io/setupR>
 
-## Example
+## Usage
 
-This is a basic example which shows you how to solve a common problem:
+setupR provides ready-to-use templates for common data science workflows:
 
 ``` r
 library(setupR)
-## basic example code TODO
+
+# Add a development history template to your project
+add_template()
+
+# Add a targets pipeline configuration
+add_template("_targets.R")
+
+# Add data loading and cleaning templates
+add_template("flat_fct_load_data.Rmd")
+add_template("flat_fct_clean_data.Rmd")
+
+# Add exploratory data analysis template (use partial matching)
+add_template("exp", save_as = "my_eda.qmd")
+
+# Add statistical modeling workflow template
+add_template("model_workflow_for_inference.qmd")
+
+# Set up R profile with best practices
+fct_add_rprofile_template("project")
 ```
+
+### Available Templates
+
+- **dev_history.Rmd** - Development workflow documentation
+- **flat_fct_load_data.Rmd** - Data loading function template (fusen)
+- **flat_fct_clean_data.Rmd** - Data cleaning function template (fusen)
+- **exploratory_data_analysis.qmd** - Quarto EDA template
+- **model_workflow_for_inference.qmd** - Statistical modeling workflow
+- **_targets.R** - Targets pipeline configuration
+- **R profile template** - Best-practice R profile settings
 
 ## Code of Conduct
 
